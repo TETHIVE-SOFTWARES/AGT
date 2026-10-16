@@ -13,13 +13,14 @@ function newest(list) {
   return [...list].sort((a, b) => eventTime(b) - eventTime(a));
 }
 
-function EventPhoto({ src, alt, sizes, frame = false }) {
+function EventPhoto({ src, alt, sizes, frame = false, natural = false }) {
   const [failed, setFailed] = useState(false);
   const missing = !src || failed;
+  const naturalClass = "mx-auto block h-auto w-auto max-h-[78vh] max-w-full object-contain md:max-h-[70vh]";
 
   if (missing) {
     return (
-      <div className="on-dark absolute inset-0 overflow-hidden bg-ink">
+      <div className={`on-dark overflow-hidden bg-ink ${natural ? "flex min-h-[240px] w-full items-center justify-center" : "absolute inset-0"}`}>
         <div
           className="absolute inset-0 opacity-40"
           style={{
@@ -41,7 +42,21 @@ function EventPhoto({ src, alt, sizes, frame = false }) {
       <img
         src={src}
         alt={alt}
-        className="absolute inset-0 h-full w-full object-contain"
+        className={natural ? naturalClass : "absolute inset-0 h-full w-full object-contain"}
+        onError={() => setFailed(true)}
+      />
+    );
+  }
+
+  if (natural) {
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        width={1600}
+        height={1200}
+        sizes={sizes}
+        className={naturalClass}
         onError={() => setFailed(true)}
       />
     );
@@ -98,17 +113,17 @@ function EventSlideshow({ events }) {
       aria-roledescription="carousel"
       aria-label="Event photographs"
     >
-      <div className="ev-shot on-dark relative aspect-[4/3] min-h-[280px] bg-ink md:min-h-[520px] md:aspect-[16/7]">
+      <div className="ev-shot on-dark relative flex items-center justify-center bg-ink">
         {slides.map((item, i) => (
           <div
             key={item.key}
-            className={`absolute inset-0 transition-opacity duration-700 ${
-              i === index ? "opacity-100" : "pointer-events-none opacity-0"
+            className={`flex w-full justify-center transition-opacity duration-700 ${
+              i === index ? "relative opacity-100" : "pointer-events-none absolute inset-0 opacity-0"
             }`}
             style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
             aria-hidden={i !== index}
           >
-            <EventPhoto src={item.image.src} alt={item.image.alt || ""} sizes="100vw" />
+            <EventPhoto natural src={item.image.src} alt={item.image.alt || ""} sizes="(max-width: 768px) 100vw, 1200px" />
           </div>
         ))}
       </div>
@@ -219,13 +234,11 @@ export default function EventsIndex() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="ev-media on-dark absolute inset-0 bg-ink"
                 />
-                <span className="pointer-events-none absolute left-5 top-5 z-30 bg-ink/90 px-3 py-1.5 font-mono text-[12px] tracking-[0.2em] text-steel-300">
-                  {event.date}
-                </span>
               </div>
 
               <div className="p-5 md:p-7">
-                <h2 className="display break-words text-2xl leading-[1.05] text-bone md:text-[1.25vw]">
+                <p className="font-mono text-[13px] tracking-[0.2em] text-steel">{event.date}</p>
+                <h2 className="display mt-3 break-words text-2xl leading-[1.05] text-bone md:text-[1.25vw]">
                   {event.title}
                 </h2>
                 <p className="mt-3 text-[15.5px] leading-relaxed text-bone-500">{event.summary}</p>

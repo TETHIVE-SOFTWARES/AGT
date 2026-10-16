@@ -14,7 +14,7 @@ const COOKIE = {
 
 export async function loginAdmin(_prev, formData) {
   const secret = process.env.ADMIN_PASSWORD || "";
-  if (!secret) return { error: "The desk password is not set on this computer." };
+  if (!secret) return { error: "The desk password is not set on the live site yet." };
   const password = String(formData.get("password") || "");
   if (!safeEqual(password, secret)) return { error: "That password is not right." };
 

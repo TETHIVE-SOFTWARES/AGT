@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { initGsap } from "@/lib/anim";
-import { company, nav, products } from "@/lib/data";
+import { company, nav } from "@/lib/data";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -221,7 +221,7 @@ export default function Nav() {
                   href={n.href}
                   onClick={() => setOpen(false)}
                   aria-current={active(n.href) ? "page" : undefined}
-                  className="ov-link group block overflow-hidden py-2"
+                  className="ov-link group block overflow-hidden py-3 md:py-1.5"
                 >
                   <span
                     className={`display flex min-w-0 items-baseline gap-4 py-1 text-[1.45rem] leading-[1.25] transition-colors duration-300 group-hover:text-steel-400 sm:text-[2rem] md:gap-4 md:py-0 md:text-[clamp(2.4rem,3.1vw,3.75rem)] md:leading-[1.05] ${
@@ -237,13 +237,7 @@ export default function Nav() {
               ))}
             </nav>
 
-            <div className="grid gap-8 border-t border-bone/10 pt-7 md:grid-cols-3">
-              <div className="ov-meta">
-                <p className="eyebrow mb-3">Stocked today</p>
-                <p className="line-clamp-3 text-sm leading-relaxed text-bone-600">
-                  {products.slice(0, 6).map((p) => p.title).join(" · ")} and more
-                </p>
-              </div>
+            <div className="grid gap-8 border-t border-bone/10 pt-7 md:grid-cols-2">
               <div className="ov-meta">
                 <p className="eyebrow mb-3">Yard</p>
                 <p className="text-sm leading-relaxed text-bone-600">
