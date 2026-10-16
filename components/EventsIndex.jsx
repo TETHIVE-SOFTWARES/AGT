@@ -98,7 +98,7 @@ function EventSlideshow({ events }) {
       aria-roledescription="carousel"
       aria-label="Event photographs"
     >
-      <div className="on-dark relative min-h-[320px] aspect-[16/10] bg-ink md:min-h-[520px] md:aspect-[16/7]">
+      <div className="ev-shot on-dark relative min-h-[320px] aspect-[16/10] bg-ink md:min-h-[520px] md:aspect-[16/7]">
         {slides.map((item, i) => (
           <div
             key={item.key}
@@ -114,7 +114,7 @@ function EventSlideshow({ events }) {
       </div>
       <div className="border-t border-bone/10 bg-ink px-5 py-6 md:px-10 md:py-8">
         <p className="font-mono text-[13px] tracking-[0.2em] text-steel">{event.date}</p>
-        <h2 className="display mt-3 max-w-[18ch] text-[8vw] leading-[1.05] text-bone md:text-[3vw]">{event.title}</h2>
+        <h2 className="display mt-3 max-w-[16ch] break-words text-[clamp(1.7rem,7vw,2.4rem)] leading-[1.05] text-bone md:text-[3vw]">{event.title}</h2>
       </div>
       <div className="flex gap-2 px-5 py-4 md:px-10">
         {events.map((item) => (
@@ -225,7 +225,7 @@ export default function EventsIndex() {
               </div>
 
               <div className="p-5 md:p-7">
-                <h2 className="display text-[4.8vw] leading-[1.05] text-bone md:text-[1.25vw]">
+                <h2 className="display break-words text-2xl leading-[1.05] text-bone md:text-[1.25vw]">
                   {event.title}
                 </h2>
                 <p className="mt-3 text-[15.5px] leading-relaxed text-bone-500">{event.summary}</p>

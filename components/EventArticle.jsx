@@ -75,7 +75,7 @@ export default function EventArticle({ slug, initial = undefined }) {
               onIndex={setPhoto}
               onImageClick={() => setLight(photo)}
               sizes="(max-width: 1024px) 100vw, 58vw"
-              className="on-dark border border-bone/10 bg-ink"
+              className="ev-shot on-dark border border-bone/10 bg-ink"
             />
           </div>
 
@@ -101,7 +101,7 @@ export default function EventArticle({ slug, initial = undefined }) {
         {images.length ? (
           <div className="mx-auto mt-16 max-w-[1680px] px-5 md:mt-24 md:px-10">
             <p className="eyebrow mb-6">Photographs</p>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+            <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 md:grid-cols-3 md:gap-4">
               {images.map((image, i) => (
                 <button
                   key={`${image.src}-${i}`}
@@ -112,7 +112,7 @@ export default function EventArticle({ slug, initial = undefined }) {
                     i === photo ? "border-steel" : "border-bone/10"
                   }`}
                 >
-                  <Cover src={image.src} alt={image.alt || ""} sizes="(max-width: 768px) 50vw, 33vw" fit="contain" className="on-dark absolute inset-0 bg-ink" />
+                  <Cover src={image.src} alt={image.alt || ""} sizes="(max-width: 768px) 100vw, 33vw" fit="contain" className="ev-shot on-dark absolute inset-0 bg-ink" />
                   <span className="absolute inset-x-0 bottom-0 block h-px w-0 bg-steel transition-all duration-700 group-hover:w-full" />
                 </button>
               ))}

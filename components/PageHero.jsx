@@ -40,7 +40,7 @@ export default function PageHero({ image, eyebrow, title, accent, intro, crumb, 
       <section ref={root} className="on-dark relative bg-ink pt-28 md:pt-36">
         <div className="mx-auto grid max-w-[1680px] items-start gap-10 px-5 pb-16 md:px-10 md:pb-20 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <p className="ph-rise mb-6 font-mono text-[12px] uppercase tracking-[0.24em] text-bone-500">
+            <p className="ph-rise mb-6 break-words font-mono text-[12px] uppercase tracking-[0.12em] text-bone-500 sm:tracking-[0.24em]">
               <Link href="/" className="link-sweep text-bone-600 transition-colors hover:text-bone">
                 Home
               </Link>
@@ -48,7 +48,7 @@ export default function PageHero({ image, eyebrow, title, accent, intro, crumb, 
               <span className="text-bone">{crumb}</span>
             </p>
             <p className="ph-rise eyebrow mb-5 md:mb-7">{eyebrow}</p>
-            <h1 className="ph-rise display max-w-[14ch] text-[12vw] leading-[1.05] text-bone md:text-[4.4vw]">
+            <h1 className="ph-rise display max-w-[14ch] break-words text-[clamp(2.15rem,10vw,3.4rem)] leading-[1.02] text-bone md:text-[4.4vw]">
               {title}
             </h1>
             {intro ? (
@@ -117,8 +117,8 @@ export default function PageHero({ image, eyebrow, title, accent, intro, crumb, 
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--c-ink)/0.34)_0%,rgb(var(--c-ink)/0)_26%,rgb(var(--c-ink)/0.1)_48%,rgb(var(--c-ink)/0.62)_78%,rgb(var(--c-ink)/0.94)_100%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(94deg,rgb(var(--c-ink)/0.72)_0%,rgb(var(--c-ink)/0.3)_34%,transparent_62%)]" />
 
-      <div className="relative z-10 mx-auto flex min-h-[50vh] max-w-[1680px] flex-col justify-end px-5 pb-12 pt-28 md:min-h-[60vh] md:px-10 md:pb-16 md:pt-36">
-        <p className="ph-rise mb-6 font-mono text-[12px] uppercase tracking-[0.24em] text-bone-500">
+      <div className="relative z-10 mx-auto flex min-h-[50vh] max-w-[1680px] flex-col justify-end px-5 pb-16 pt-28 md:min-h-[60vh] md:px-10 md:pb-16 md:pt-36">
+        <p className="ph-rise mb-6 break-words font-mono text-[12px] uppercase tracking-[0.12em] text-bone-500 sm:tracking-[0.24em]">
           <Link href="/" className="link-sweep text-bone-600 transition-colors hover:text-bone">
             Home
           </Link>
@@ -139,10 +139,10 @@ export default function PageHero({ image, eyebrow, title, accent, intro, crumb, 
 
         <p className="ph-rise eyebrow mb-5 md:mb-7">{eyebrow}</p>
 
-        <h1 className="ph-rise display text-bone">
-          <span className="block text-[11vw] leading-[1.05] md:text-[6.1vw]">{title}</span>
+        <h1 className="ph-rise display break-words text-bone">
+          <span className="block text-[clamp(2.15rem,10vw,3.4rem)] leading-[1.02] md:text-[6.1vw]">{title}</span>
           {accent ? (
-            <span className="block text-[11vw] leading-[1.05] text-steel-400 md:text-[6.1vw]">
+            <span className="block text-[clamp(2.15rem,10vw,3.4rem)] leading-[1.02] text-steel-400 md:text-[6.1vw]">
               {accent}
             </span>
           ) : null}

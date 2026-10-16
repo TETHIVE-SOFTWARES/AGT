@@ -67,7 +67,7 @@ export default function EventsAdmin() {
                 <p className="truncate font-display text-lg uppercase tracking-wide text-bone">{event.title}</p>
               </div>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
               <Link href={`/admin/events/${event.id}`} className="btn btn-ghost !px-5 !py-3">
                 Edit
               </Link>

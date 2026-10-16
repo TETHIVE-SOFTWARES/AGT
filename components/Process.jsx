@@ -104,7 +104,7 @@ export default function Process({ kicker = "From enquiry to site" }) {
                     <Icon name={s.icon} size={32} />
                   </span>
                 </span>
-                <h3 className="display text-[5.6vw] leading-[1.08] text-bone md:col-span-5 md:text-[1.95vw]">
+                <h3 className="display break-words text-2xl leading-[1.08] text-bone md:col-span-5 md:text-[1.95vw]">
                   {s.title}
                 </h3>
                 <p className="max-w-[52ch] text-[17px] leading-relaxed text-bone-600 md:col-span-6">

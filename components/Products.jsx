@@ -18,7 +18,7 @@ export default function Products() {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         const getDistance = () =>
           Math.max(0, track.current.scrollWidth - window.innerWidth + 40);
 
@@ -98,7 +98,7 @@ export default function Products() {
   }, []);
 
   return (
-    <section id="products" ref={root} className="on-dark relative h-screen overflow-hidden bg-ink">
+    <section id="products" ref={root} className="on-dark relative h-auto overflow-hidden bg-ink md:h-screen">
       <div className="flex h-full flex-col">
         {/* ---------- Heading rail ---------- */}
         <div className="shrink-0 px-5 pb-6 pt-24 md:px-10 md:pb-8 md:pt-28">
@@ -118,15 +118,16 @@ export default function Products() {
         </div>
 
         {/* ---------- Horizontal track ---------- */}
-        <div className="flex min-h-0 flex-1 items-stretch pb-12">
+        <div className="flex min-h-0 flex-1 items-stretch pb-10 md:pb-12">
           <div
             ref={track}
-            className="flex items-stretch gap-4 pl-5 pr-16 will-change-transform md:gap-6 md:pl-10"
+            className="flex w-full snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-5 pb-4 will-change-transform md:w-auto md:gap-6 md:overflow-visible md:px-0 md:pl-10 md:pr-16 md:pb-0"
+            data-lenis-prevent
           >
           {products.map((p) => (
             <article
               key={p.n}
-              className="pr-card p-card scanline group relative h-full w-[78vw] shrink-0 overflow-hidden border border-bone/10 bg-ink-700 sm:w-[54vw] md:w-[32vw] lg:w-[25vw]"
+              className="pr-card p-card scanline group relative h-[68vh] min-h-[440px] w-[84vw] shrink-0 snap-start overflow-hidden border border-bone/10 bg-ink-700 sm:w-[54vw] md:h-full md:min-h-0 md:w-[32vw] lg:w-[25vw]"
             >
               <Media
                 src={p.img}
@@ -162,13 +163,13 @@ export default function Products() {
 
               {/* Body */}
               <div className="absolute inset-x-0 bottom-0 z-10 p-5 md:p-7">
-                <h3 className="display text-[5.6vw] leading-[1.05] text-bone md:text-[min(1.65vw,27px)]">
+                <h3 className="display text-2xl leading-[1.05] text-bone md:text-[min(1.65vw,27px)]">
                   {p.title}
                 </h3>
-                <p className="mt-3 font-mono text-[9.5px] uppercase leading-relaxed tracking-[0.14em] text-steel-300">
+                <p className="mt-3 font-mono text-[11px] uppercase leading-relaxed tracking-[0.08em] text-steel-300 sm:text-[12px] sm:tracking-[0.14em]">
                   {p.brands}
                 </p>
-                <p className="mt-4 max-h-0 overflow-hidden text-[13px] leading-relaxed text-bone-600 opacity-0 transition-all duration-700 group-hover:max-h-40 group-hover:opacity-100">
+                <p className="mt-4 max-h-28 overflow-hidden text-[13px] leading-relaxed text-bone-600 opacity-100 md:max-h-0 md:opacity-0 md:transition-all md:duration-700 md:group-hover:max-h-40 md:group-hover:opacity-100">
                   {p.desc}
                 </p>
               </div>
@@ -176,12 +177,12 @@ export default function Products() {
           ))}
 
             {/* Tail card — closes the sequence with a call to action */}
-            <article className="relative flex h-full w-[78vw] shrink-0 flex-col justify-between border border-steel/25 bg-steel-700/50 p-6 sm:w-[54vw] md:w-[32vw] md:p-9 lg:w-[25vw]">
+            <article className="relative flex h-[68vh] min-h-[440px] w-[84vw] shrink-0 snap-start flex-col justify-between border border-steel/25 bg-steel-700/50 p-6 sm:w-[54vw] md:h-full md:min-h-0 md:w-[32vw] md:p-9 lg:w-[25vw]">
               <span className="font-mono text-[13px] tracking-[0.25em] text-steel-300">
                 {String(products.length + 1).padStart(2, "0")}
               </span>
               <div>
-                <h3 className="display text-[6.2vw] leading-[1.05] text-bone md:text-[min(1.85vw,30px)]">
+                <h3 className="display text-3xl leading-[1.05] text-bone md:text-[min(1.85vw,30px)]">
                   Need the
                   <br />
                   full list?
@@ -200,7 +201,7 @@ export default function Products() {
       </div>
 
       {/* ---------- Progress ---------- */}
-      <div className="absolute inset-x-0 bottom-0 z-20 px-5 pb-7 md:px-10">
+      <div className="absolute inset-x-0 bottom-0 z-20 hidden px-5 pb-7 md:block md:px-10">
         <div className="mx-auto max-w-[1680px]">
           <div className="h-px w-full bg-bone/12">
             <div ref={bar} className="h-full w-full origin-left scale-x-0 bg-steel" />

@@ -566,7 +566,7 @@ export default function ContactYard() {
       </section>
 
       {toast ? (
-        <p role="status" className="fixed bottom-6 left-1/2 z-[70] -translate-x-1/2 border border-bone/15 bg-ink px-4 py-2 font-mono text-[12px] uppercase tracking-[0.18em] text-bone">
+        <p role="status" className="fixed bottom-24 left-1/2 z-[70] max-w-[90vw] -translate-x-1/2 border border-bone/15 bg-ink px-4 py-2 text-center font-mono text-[12px] uppercase tracking-[0.12em] text-bone md:bottom-6">
           {toast}
         </p>
       ) : null}

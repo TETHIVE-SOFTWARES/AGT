@@ -146,7 +146,7 @@ export default function About() {
               className="ab-img-inner absolute inset-0"
             />
             <div className="absolute bottom-0 left-0 z-10 p-6 md:p-8">
-              <p className="font-mono text-[12px] tracking-[0.28em] text-steel-300">
+              <p className="font-mono text-[11px] tracking-[0.12em] text-steel-300 sm:text-[12px] sm:tracking-[0.28em]">
                 ERACHAKULAM · NAGERCOIL
               </p>
               <p className="mt-2 max-w-[28ch] text-sm leading-relaxed text-bone-600">
@@ -170,7 +170,7 @@ export default function About() {
                       </>
                     )}
                   </p>
-                  <p className="mt-3 font-mono text-[12px] uppercase tracking-[0.22em] text-bone-500">
+                  <p className="mt-3 font-mono text-[11px] uppercase leading-snug tracking-[0.08em] text-bone-500 sm:text-[12px] sm:tracking-[0.22em]">
                     {s.label}
                   </p>
                 </div>

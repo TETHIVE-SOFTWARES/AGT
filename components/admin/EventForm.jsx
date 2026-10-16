@@ -192,7 +192,7 @@ export default function EventForm({ eventId = "" }) {
       </span>
 
       <div className="mb-10 flex flex-wrap items-end justify-between gap-4 border-b border-bone/15 pb-8">
-        <h2 className="font-display text-5xl uppercase leading-[0.9] tracking-[-0.02em] text-bone md:text-6xl">
+        <h2 className="font-display text-4xl uppercase leading-[0.9] tracking-[-0.02em] text-bone sm:text-5xl md:text-6xl">
           {editing ? "Edit event" : "Add event"}
         </h2>
         <Link href="/admin/events" className={`${GHOST} !px-5 !py-3`}>
@@ -292,7 +292,7 @@ export default function EventForm({ eventId = "" }) {
           <div>
             <p className={LABEL}>Gallery</p>
             {form.gallery.length ? (
-              <ul className="mt-3 grid grid-cols-2 gap-3">
+              <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {form.gallery.map((item) => (
                   <li key={item.key} className="on-dark relative aspect-[16/11] overflow-hidden border border-bone/15 bg-ink">
                     <Cover src={item.preview} alt="" sizes="240px" fit="contain" className="absolute inset-0" />

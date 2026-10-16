@@ -138,7 +138,7 @@ export default function Nav() {
         ref={bar}
         className={`fixed inset-x-0 top-0 z-[70] border-b transition-[background-color,border-color] duration-500 ${
           dark ? "on-dark" : ""
-        } ${open ? "border-transparent bg-transparent" : scrolled ? "border-bone/10 bg-ink/90" : "border-transparent bg-transparent"}`}
+        } ${open ? "border-transparent bg-transparent" : scrolled ? "border-bone/10 bg-ink/90" : "max-md:border-bone/10 max-md:bg-ink/95 border-transparent bg-transparent"}`}
       >
         <div className="mx-auto flex max-w-[1680px] items-center justify-between px-5 py-4 md:px-10 md:py-5">
           <Link href="/#top" className="flex items-center gap-3" aria-label={company.name}>
@@ -213,7 +213,7 @@ export default function Nav() {
           />
           <div className="absolute inset-0 bg-gradient-to-br from-steel/10 via-transparent to-transparent" />
 
-          <div className="relative mx-auto flex h-full max-w-[1680px] flex-col justify-between px-5 pb-8 pt-28 md:px-10 md:pt-36">
+          <div className="relative mx-auto flex h-full max-w-[1680px] flex-col justify-between px-5 pb-8 pt-24 md:px-10 md:pt-36">
             <nav className="flex min-h-0 flex-col overflow-y-auto">
               {nav.map((n, i) => (
                 <Link
@@ -221,10 +221,10 @@ export default function Nav() {
                   href={n.href}
                   onClick={() => setOpen(false)}
                   aria-current={active(n.href) ? "page" : undefined}
-                  className="ov-link group block overflow-hidden py-1"
+                  className="ov-link group block overflow-hidden py-0.5"
                 >
                   <span
-                    className={`display flex items-baseline gap-3 text-[clamp(2.15rem,7.4vw,3rem)] transition-colors duration-300 group-hover:text-steel-400 md:gap-4 md:text-[clamp(2.4rem,3.1vw,3.75rem)] ${
+                    className={`display flex min-w-0 items-baseline gap-3 text-[1.55rem] leading-[1.05] transition-colors duration-300 group-hover:text-steel-400 sm:text-[2.15rem] md:gap-4 md:text-[clamp(2.4rem,3.1vw,3.75rem)] ${
                       active(n.href) ? "text-steel-400" : "text-bone"
                     }`}
                   >
@@ -240,7 +240,7 @@ export default function Nav() {
             <div className="grid gap-8 border-t border-bone/10 pt-7 md:grid-cols-3">
               <div className="ov-meta">
                 <p className="eyebrow mb-3">Stocked today</p>
-                <p className="text-sm leading-relaxed text-bone-600">
+                <p className="line-clamp-3 text-sm leading-relaxed text-bone-600">
                   {products.slice(0, 6).map((p) => p.title).join(" · ")} and more
                 </p>
               </div>

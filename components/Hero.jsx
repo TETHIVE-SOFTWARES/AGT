@@ -244,7 +244,7 @@ export default function Hero({ ready }) {
       <div className="letterbox letterbox-b h-0" />
 
       {/* ---------- Headline stack ---------- */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1680px] flex-col justify-end px-5 pb-24 md:px-10 md:pb-28">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1680px] flex-col justify-end px-5 pb-28 md:px-10 md:pb-28">
         <div className="relative">
           {heroSlides.map((s, i) => (
             <div
@@ -255,10 +255,10 @@ export default function Hero({ ready }) {
               <p className="h-fade eyebrow mb-5 md:mb-7">{s.kicker}</p>
 
               <h1 className="display text-bone [perspective:1100px] [transform-style:preserve-3d]">
-                <span className="h-line block text-[11vw] leading-[1.05] md:text-[6.1vw]">
+                <span className="h-line block text-[clamp(2.15rem,10vw,3.25rem)] leading-[1.05] md:text-[6.1vw]">
                   <span className="sweep block [transform-style:preserve-3d]">{s.line1}</span>
                 </span>
-                <span className="h-line block text-[11vw] leading-[1.05] md:text-[6.1vw]">
+                <span className="h-line block text-[clamp(2.15rem,10vw,3.25rem)] leading-[1.05] md:text-[6.1vw]">
                   <span className="sweep block text-steel-400 [transform-style:preserve-3d]">
                     {s.line2}
                   </span>
@@ -273,11 +273,11 @@ export default function Hero({ ready }) {
         </div>
 
         {/* ---------- Bottom chrome ---------- */}
-        <div className="hero-chrome mt-10 flex flex-wrap items-center gap-3 md:mt-12">
-          <a href="/#products" className="btn btn-solid">
+        <div className="hero-chrome mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center md:mt-12">
+          <a href="/#products" className="btn btn-solid w-full justify-center sm:w-auto">
             View the catalogue
           </a>
-          <a href={company.social.whatsapp} target="_blank" rel="noreferrer" className="btn btn-ghost">
+          <a href={company.social.whatsapp} target="_blank" rel="noreferrer" className="btn btn-ghost w-full justify-center sm:w-auto">
             WhatsApp a quote
           </a>
         </div>
@@ -304,7 +304,7 @@ export default function Hero({ ready }) {
       </div>
 
       {/* ---------- Scroll cue ---------- */}
-      <div className="scroll-cue hero-chrome absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
+      <div className="scroll-cue hero-chrome absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex">
         <span className="font-mono text-[11px] tracking-[0.3em] text-bone-500">SCROLL</span>
         <span className="relative block h-9 w-px overflow-hidden bg-bone/20">
           <span className="absolute inset-x-0 top-0 block h-3 animate-[cue_1.8s_ease-in-out_infinite] bg-steel" />

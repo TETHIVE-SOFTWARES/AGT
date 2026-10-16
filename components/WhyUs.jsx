@@ -19,25 +19,29 @@ export default function WhyUs() {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+        const panels = gsap.utils.toArray(".why-panel");
+        panels.forEach((panel, i) => {
+          if (i >= panels.length - 1) return;
+          gsap.to(panel.querySelector(".why-inner"), {
+            scale: 0.94,
+            opacity: 0.62,
+            filter: "brightness(0.72)",
+            ease: "none",
+            scrollTrigger: {
+              trigger: panels[i + 1],
+              start: "top bottom",
+              end: "top top",
+              scrub: true,
+            },
+          });
+        });
+      });
+
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const panels = gsap.utils.toArray(".why-panel");
 
-        panels.forEach((panel, i) => {
-          if (i < panels.length - 1) {
-            gsap.to(panel.querySelector(".why-inner"), {
-              scale: 0.94,
-              opacity: 0.62,
-              filter: "brightness(0.72)",
-              ease: "none",
-              scrollTrigger: {
-                trigger: panels[i + 1],
-                start: "top bottom",
-                end: "top top",
-                scrub: true,
-              },
-            });
-          }
-
+        panels.forEach((panel) => {
           /* Content rises as the panel takes the screen */
           gsap.fromTo(
             panel.querySelectorAll(".why-rise"),
@@ -103,8 +107,8 @@ export default function WhyUs() {
 
       {/* Stacked panels */}
       {whyPanels.map((p, i) => (
-        <div key={p.n} className="why-panel sticky top-0 h-screen w-full">
-          <div className="why-inner relative grid h-full w-full origin-center grid-rows-[34vh_1fr] overflow-hidden bg-ink md:grid-cols-2 md:grid-rows-1">
+        <div key={p.n} className="why-panel w-full md:sticky md:top-0 md:h-screen">
+          <div className="why-inner relative grid h-auto w-full grid-rows-[minmax(220px,42vh)_auto] overflow-hidden bg-ink md:h-full md:origin-center md:grid-cols-2 md:grid-rows-1">
             {/* ---------- Text, on its own surface ---------- */}
             <div
               className={`relative z-10 order-2 flex items-center px-5 py-8 md:px-12 md:py-10 lg:px-16 ${
@@ -119,7 +123,7 @@ export default function WhyUs() {
                 <p className="why-rise display text-[min(14vw,10.5vh)] leading-[0.85] text-bone/10 md:text-[min(6.6vw,11.5vh)]">
                   {p.n}
                 </p>
-                <h3 className="why-rise display -mt-[0.22em] text-[min(9.6vw,7.6vh)] leading-[1.05] text-bone md:text-[min(3.4vw,6.4vh)]">
+                <h3 className="why-rise display -mt-[0.22em] text-[clamp(1.85rem,8vw,2.6rem)] leading-[1.05] text-bone md:text-[min(3.4vw,6.4vh)]">
                   {p.title}
                 </h3>
                 <p className="why-rise mt-5 text-[17px] leading-relaxed text-bone-600 md:mt-7 md:text-[16px]">
@@ -133,7 +137,7 @@ export default function WhyUs() {
                       className="flex items-center gap-4 border-b border-bone/10 py-3.5"
                     >
                       <span className="h-1.5 w-1.5 rotate-45 bg-steel" />
-                      <span className="font-mono text-[13px] uppercase tracking-[0.18em] text-bone">
+                      <span className="min-w-0 font-mono text-[13px] uppercase leading-snug tracking-[0.06em] text-bone sm:tracking-[0.18em]">
                         {pt}
                       </span>
                     </li>
@@ -154,10 +158,10 @@ export default function WhyUs() {
 
               {/* Only a soft blend into the text side — the photo stays clean */}
               <div
-                className={`absolute inset-0 ${
+                className={`absolute inset-0 max-md:bg-[linear-gradient(180deg,transparent_46%,rgb(var(--c-ink)/0.92)_100%)] ${
                   i % 2 === 1
-                    ? "bg-[linear-gradient(270deg,rgb(var(--c-ink)/0.9)_0%,transparent_26%)]"
-                    : "bg-[linear-gradient(90deg,rgb(var(--c-ink)/0.9)_0%,transparent_26%)]"
+                    ? "md:bg-[linear-gradient(270deg,rgb(var(--c-ink)/0.9)_0%,transparent_26%)]"
+                    : "md:bg-[linear-gradient(90deg,rgb(var(--c-ink)/0.9)_0%,transparent_26%)]"
                 }`}
               />
 

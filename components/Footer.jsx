@@ -19,7 +19,7 @@ export default function Footer() {
                 <p className="font-display text-xl leading-tight tracking-wide text-bone">
                   AMBIKA GLOBAL
                 </p>
-                <p className="font-mono text-[12px] tracking-[0.28em] text-bone-500">
+                <p className="font-mono text-[12px] tracking-[0.12em] text-bone-500 sm:tracking-[0.28em]">
                   TRADERS · EST. {company.since}
                 </p>
               </div>
@@ -30,7 +30,7 @@ export default function Footer() {
               customers across Kanyakumari district.
             </p>
 
-            <div className="mt-8 flex gap-3">
+            <div className="mt-8 flex flex-wrap gap-2">
               {[
                 ["Facebook", company.social.facebook],
                 ["Instagram", company.social.instagram],
@@ -105,7 +105,7 @@ export default function Footer() {
 
       {/* ---------- Legal bar ---------- */}
       <div className="hair-t">
-        <div className="mx-auto flex max-w-[1680px] flex-col gap-3 px-5 py-6 font-mono text-[12px] uppercase tracking-[0.16em] text-bone-500 md:flex-row md:items-center md:justify-between md:px-10">
+        <div className="mx-auto flex max-w-[1680px] flex-col gap-3 px-5 py-6 pb-24 font-mono text-[12px] uppercase tracking-[0.08em] text-bone-500 md:flex-row md:items-center md:justify-between md:px-10 md:pb-6 md:tracking-[0.16em]">
           <span>
             © {new Date().getFullYear()} {company.name}. All rights reserved.
           </span>

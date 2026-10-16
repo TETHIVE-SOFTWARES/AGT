@@ -133,7 +133,7 @@ export default function PosterForm({ jobId = "" }) {
       </span>
 
       <div className="mb-10 flex flex-wrap items-end justify-between gap-4 border-b border-bone/15 pb-8">
-        <h2 className="font-display text-5xl uppercase leading-[0.9] tracking-[-0.02em] text-bone md:text-6xl">
+        <h2 className="font-display text-4xl uppercase leading-[0.9] tracking-[-0.02em] text-bone sm:text-5xl md:text-6xl">
           {editing ? "Edit career" : "Add career"}
         </h2>
         <Link href="/admin/careers" className={`${GHOST} !px-5 !py-3`}>
@@ -145,7 +145,7 @@ export default function PosterForm({ jobId = "" }) {
         <div className="relative flex flex-col overflow-hidden lg:col-span-6">
           <p
             aria-hidden="true"
-            className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 select-none font-display text-[140px] uppercase leading-none tracking-[-0.04em] text-bone/5"
+            className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 select-none font-display text-[72px] uppercase leading-none tracking-[-0.04em] text-bone/5 sm:text-[140px]"
           >
             Career
           </p>

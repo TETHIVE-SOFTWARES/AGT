@@ -200,6 +200,11 @@ input::placeholder, textarea::placeholder {
   overflow: hidden; isolation: isolate;
   transition: color 0.4s var(--ease);
 }
+/* .btn sets display after Tailwind, which would undo `hidden` on a phone. */
+.btn.hidden { display: none; }
+@media (min-width: 768px) {
+  .btn.md\:inline-flex { display: inline-flex; }
+}
 .btn::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background: var(--steel);
@@ -214,6 +219,22 @@ input::placeholder, textarea::placeholder {
 .btn-ghost:hover  { color: #fff; border-color: var(--steel); }
 .btn-line { border-color: rgb(var(--c-bone) / 0.4); }
 .btn-line:hover { border-color: var(--steel); }
+
+@media (max-width: 639px) {
+  .btn {
+    padding: 14px 18px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* Phone frames are too short for a contained portrait, which leaves a black
+   bar beside the photo. Fill the frame on small screens; keep the full
+   picture visible from the tablet size up. */
+@media (max-width: 767px) {
+  .ev-frame img,
+  .ev-shot img { object-fit: cover; object-position: center; }
+}
 
 /* ---------- Link underline sweep ---------- */
 .link-sweep { position: relative; }
