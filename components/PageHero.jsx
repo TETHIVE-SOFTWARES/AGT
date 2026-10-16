@@ -117,7 +117,7 @@ export default function PageHero({ image, eyebrow, title, accent, intro, crumb, 
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--c-ink)/0.34)_0%,rgb(var(--c-ink)/0)_26%,rgb(var(--c-ink)/0.1)_48%,rgb(var(--c-ink)/0.62)_78%,rgb(var(--c-ink)/0.94)_100%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(94deg,rgb(var(--c-ink)/0.72)_0%,rgb(var(--c-ink)/0.3)_34%,transparent_62%)]" />
 
-      <div className="relative z-10 mx-auto flex min-h-[50vh] max-w-[1680px] flex-col justify-end px-5 pb-16 pt-28 md:min-h-[60vh] md:px-10 md:pb-16 md:pt-36">
+      <div className="relative z-10 mx-auto flex min-h-[62vh] max-w-[1680px] flex-col justify-end px-5 pb-16 pt-32 md:min-h-[60vh] md:px-10 md:pb-16 md:pt-36">
         <p className="ph-rise mb-6 break-words font-mono text-[12px] uppercase tracking-[0.12em] text-bone-500 sm:tracking-[0.24em]">
           <Link href="/" className="link-sweep text-bone-600 transition-colors hover:text-bone">
             Home

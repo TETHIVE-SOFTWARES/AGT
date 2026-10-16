@@ -98,7 +98,7 @@ function EventSlideshow({ events }) {
       aria-roledescription="carousel"
       aria-label="Event photographs"
     >
-      <div className="ev-shot on-dark relative min-h-[320px] aspect-[16/10] bg-ink md:min-h-[520px] md:aspect-[16/7]">
+      <div className="ev-shot on-dark relative aspect-[4/3] min-h-[280px] bg-ink md:min-h-[520px] md:aspect-[16/7]">
         {slides.map((item, i) => (
           <div
             key={item.key}
@@ -208,7 +208,7 @@ export default function EventsIndex() {
               href={`/events/${event.slug}`}
               className="ev-card group relative block overflow-hidden border border-bone/10 bg-ink"
             >
-              <div className="ev-frame relative aspect-[16/11] overflow-hidden">
+              <div className="ev-frame relative aspect-[4/3] overflow-hidden md:aspect-[16/11]">
                 <div className="on-dark pointer-events-none absolute inset-0 bg-ink" aria-hidden="true" />
                 <ImageSlideshow
                   images={event.images}

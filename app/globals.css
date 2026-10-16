@@ -97,6 +97,9 @@ body {
   line-height: 1.05;
   letter-spacing: -0.035em;
 }
+@media (max-width: 767px) {
+  .ov-link .display { line-height: 1.28; }
+}
 
 body { font-weight: 400; letter-spacing: -0.005em; }
 
@@ -228,12 +231,11 @@ input::placeholder, textarea::placeholder {
   }
 }
 
-/* Phone frames are too short for a contained portrait, which leaves a black
-   bar beside the photo. Fill the frame on small screens; keep the full
-   picture visible from the tablet size up. */
+/* On a phone, show the whole photograph — portrait or landscape — instead of
+   cropping the top of the frame. */
 @media (max-width: 767px) {
   .ev-frame img,
-  .ev-shot img { object-fit: cover; object-position: center; }
+  .ev-shot img { object-fit: contain; object-position: center; }
 }
 
 /* ---------- Link underline sweep ---------- */
