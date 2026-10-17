@@ -555,9 +555,9 @@ export default function ContactYard() {
           <p data-reveal className="mt-8 max-w-[60ch] text-[17px] leading-relaxed text-bone-600">
             Just outside the district? Call us anyway.
           </p>
-          <div data-reveal className="mt-10 flex flex-wrap gap-2">
+          <div data-reveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {areas.map((town) => (
-              <span key={town} className="border border-bone/10 px-3 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-bone-600">
+              <span key={town} className="flex min-h-[52px] items-center justify-center border border-bone/20 px-3 py-3 text-center font-mono text-[12px] uppercase leading-snug tracking-[0.08em] text-bone-600 sm:tracking-[0.12em]">
                 {town}
               </span>
             ))}

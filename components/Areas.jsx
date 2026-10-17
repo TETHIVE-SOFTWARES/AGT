@@ -79,17 +79,13 @@ export default function Areas() {
           </div>
         </div>
 
-        <div className="ar-grid mt-16 grid grid-cols-1 gap-px border border-bone/10 bg-bone/10 sm:grid-cols-2 md:mt-24 md:grid-cols-3 lg:grid-cols-5">
+        <div className="ar-grid mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-24 md:grid-cols-4 lg:grid-cols-5">
           {areas.map((a) => (
             <div
               key={a}
-              className="ar-item group relative flex min-w-0 items-center gap-3 bg-ink px-3 py-4 transition-colors duration-500 hover:bg-ink-700 sm:px-4 sm:py-5 md:px-6 md:py-7"
+              className="ar-item flex min-h-[52px] items-center justify-center border border-bone/20 bg-ink px-3 py-3 text-center transition-colors duration-500 hover:border-steel"
             >
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-steel opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-steel" />
-              </span>
-              <span className="min-w-0 font-mono text-[11px] uppercase leading-snug tracking-[0.04em] text-bone-600 transition-colors group-hover:text-bone sm:text-[13px] sm:tracking-[0.12em]">
+              <span className="font-mono text-[12px] uppercase leading-snug tracking-[0.08em] text-bone-600 sm:tracking-[0.12em]">
                 {a}
               </span>
             </div>
