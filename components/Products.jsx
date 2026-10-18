@@ -13,70 +13,39 @@ export default function Products() {
   const bar = useRef(null);
 
   useEffect(() => {
-    const { gsap, ScrollTrigger } = initGsap();
+    const { gsap } = initGsap();
 
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+      const scroller = track.current;
+      const paint = () => {
+        if (!bar.current || !scroller) return;
+        const max = scroller.scrollWidth - scroller.clientWidth;
+        const progress = max > 0 ? scroller.scrollLeft / max : 0;
+        bar.current.style.transform = `scaleX(${progress})`;
+      };
+      scroller?.addEventListener("scroll", paint, { passive: true });
+      paint();
 
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
-        const getDistance = () =>
-          Math.max(0, track.current.scrollWidth - window.innerWidth + 40);
-
-        const tween = gsap.to(track.current, {
-          x: () => -getDistance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: root.current,
-            start: "top top",
-            end: () => `+=${getDistance()}`,
-            pin: true,
-            scrub: 0.7,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-            onUpdate: (self) => {
-              if (bar.current) bar.current.style.transform = `scaleX(${self.progress})`;
-            },
-          },
-        });
-
-        /* Each card pushes in as it crosses the screen; its icon draws itself */
-        const cards = gsap.utils.toArray(".pr-card");
-        cards.forEach((card) => {
-          gsap.fromTo(
-            card.querySelector(".pr-media"),
-            { scale: 1.16 },
-            {
-              scale: 1,
-              ease: "none",
-              scrollTrigger: {
-                trigger: card,
-                containerAnimation: tween,
-                start: "left right",
-                end: "right left",
-                scrub: true,
-              },
+      const cards = gsap.utils.toArray(".pr-card");
+      const seen = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const strokes = entry.target.querySelectorAll(".pr-icon [pathLength]");
+            if (strokes.length) {
+              gsap.to(strokes, {
+                strokeDashoffset: 0,
+                duration: 1.1,
+                ease: "power2.inOut",
+                stagger: 0.07,
+              });
             }
-          );
-
-          const strokes = card.querySelectorAll(".pr-icon [pathLength]");
-          if (strokes.length) {
-            gsap.to(strokes, {
-              strokeDashoffset: 0,
-              duration: 1.1,
-              ease: "power2.inOut",
-              stagger: 0.07,
-              scrollTrigger: {
-                trigger: card,
-                containerAnimation: tween,
-                start: "left 85%",
-                once: true,
-              },
-            });
-          }
-        });
-
-        return () => tween.kill();
-      });
+            seen.unobserve(entry.target);
+          });
+        },
+        { root: scroller, threshold: 0.45 }
+      );
+      cards.forEach((card) => seen.observe(card));
 
       /* Section heading reveal */
       gsap.fromTo(
@@ -91,14 +60,17 @@ export default function Products() {
         }
       );
 
-      return () => mm.revert();
+      return () => {
+        scroller?.removeEventListener("scroll", paint);
+        seen.disconnect();
+      };
     }, root);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="products" ref={root} className="on-dark relative h-auto overflow-hidden bg-ink md:h-screen">
+    <section id="products" ref={root} className="on-dark relative overflow-hidden bg-ink">
       <div className="flex h-full flex-col">
         {/* ---------- Heading rail ---------- */}
         <div className="shrink-0 px-5 pb-6 pt-24 md:px-10 md:pb-8 md:pt-28">
@@ -121,13 +93,12 @@ export default function Products() {
         <div className="flex min-h-0 flex-1 items-stretch pb-10 md:pb-12">
           <div
             ref={track}
-            className="flex w-full snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-5 pb-4 will-change-transform md:w-auto md:gap-6 md:overflow-visible md:px-0 md:pl-10 md:pr-16 md:pb-0"
-            data-lenis-prevent
+            className="flex w-full snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-5 pb-4 md:gap-6 md:px-10"
           >
           {products.map((p) => (
             <article
               key={p.n}
-              className="pr-card p-card scanline group relative h-[68vh] min-h-[440px] w-[84vw] shrink-0 snap-start overflow-hidden border border-bone/10 bg-ink-700 sm:w-[54vw] md:h-full md:min-h-0 md:w-[32vw] lg:w-[25vw]"
+              className="pr-card p-card scanline group relative h-[68vh] min-h-[440px] max-h-[640px] w-[84vw] shrink-0 snap-start overflow-hidden border border-bone/10 bg-ink-700 sm:w-[54vw] md:w-[32vw] lg:w-[25vw]"
             >
               <Media
                 src={p.img}
@@ -177,7 +148,7 @@ export default function Products() {
           ))}
 
             {/* Tail card — closes the sequence with a call to action */}
-            <article className="relative flex h-[68vh] min-h-[440px] w-[84vw] shrink-0 snap-start flex-col justify-between border border-steel/25 bg-steel-700/50 p-6 sm:w-[54vw] md:h-full md:min-h-0 md:w-[32vw] md:p-9 lg:w-[25vw]">
+            <article className="relative flex h-[68vh] min-h-[440px] max-h-[640px] w-[84vw] shrink-0 snap-start flex-col justify-between border border-steel/25 bg-steel-700/50 p-6 sm:w-[54vw] md:w-[32vw] md:p-9 lg:w-[25vw]">
               <span className="font-mono text-[13px] tracking-[0.25em] text-steel-300">
                 {String(products.length + 1).padStart(2, "0")}
               </span>
@@ -201,7 +172,7 @@ export default function Products() {
       </div>
 
       {/* ---------- Progress ---------- */}
-      <div className="absolute inset-x-0 bottom-0 z-20 hidden px-5 pb-7 md:block md:px-10">
+      <div className="px-5 pb-8 md:px-10">
         <div className="mx-auto max-w-[1680px]">
           <div className="h-px w-full bg-bone/12">
             <div ref={bar} className="h-full w-full origin-left scale-x-0 bg-steel" />

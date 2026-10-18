@@ -29,8 +29,8 @@ export default function Hero({ ready }) {
         // a mask crop reads as the text being cut in half mid-scroll.
         .fromTo(
           "[data-slide='0'] .h-line > span",
-          { z: -520, y: 50, opacity: 0, rotateX: -32 },
-          { z: 0, y: 0, opacity: 1, rotateX: 0, duration: 1.5, stagger: 0.13 },
+          { y: 28, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.1, stagger: 0.12 },
           0.5
         )
         .fromTo(
@@ -50,12 +50,6 @@ export default function Hero({ ready }) {
           { opacity: 0 },
           { opacity: 1, duration: 2.4, ease: "power2.out" },
           0.6
-        )
-        .fromTo(
-          ".hero-img-0",
-          { scale: 1.34 },
-          { scale: 1.14, duration: 2.6, ease: "power2.out" },
-          0
         );
     }, root);
     return () => ctx.revert();
@@ -104,94 +98,53 @@ export default function Hero({ ready }) {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // Slides after the first start hidden and below the mask
-        for (let i = 1; i < n; i++) {
-          gsap.set(`.hero-img-${i}`, { opacity: 0, scale: 1.18 });
-          gsap.set(`[data-slide='${i}'] .h-line > span`, {
-            z: -520,
-            y: 50,
-            opacity: 0,
-            rotateX: -32,
-          });
-          gsap.set(`[data-slide='${i}'] .h-fade`, { opacity: 0, y: 24 });
-        }
+        const show = (progress) => {
+          const p = Math.min(1, Math.max(0, progress));
+          const current = Math.min(n - 1, Math.floor(p * n));
+          const local = Math.min(1, Math.max(0, (p - current / n) * n));
+          // Same slow pull-in as the inner-page heroes: each photo starts wide and settles as you scroll.
+          const zoom = 1.18 - local * 0.13;
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: root.current,
-            start: "top top",
-            end: `+=${n * 85}%`,
-            pin: true,
-            scrub: 0.8,
-            anticipatePin: 1,
-            onUpdate: (self) => {
-              const i = Math.min(n - 1, Math.floor(self.progress * n + 0.0001));
-              if (indexRef.current) {
-                indexRef.current.textContent = String(i + 1).padStart(2, "0");
-              }
-              document.querySelectorAll("[data-dot]").forEach((d, di) => {
-                d.style.transform = `scaleY(${di === i ? 1 : 0.25})`;
-                d.style.opacity = di === i ? "1" : "0.3";
-              });
-            },
-          },
+          for (let s = 0; s < n; s++) {
+            const on = s === current;
+            gsap.set(`[data-slide='${s}']`, { autoAlpha: on ? 1 : 0, y: 0, rotateX: 0, z: 0 });
+            gsap.set(`[data-slide='${s}'] .h-line > span, [data-slide='${s}'] .h-fade`, {
+              y: 0,
+              z: 0,
+              rotateX: 0,
+              opacity: on ? 1 : 0,
+            });
+            gsap.set(`.hero-img-${s}`, { autoAlpha: on ? 1 : 0, scale: on ? zoom : 1.18 });
+          }
+
+          if (indexRef.current) {
+            indexRef.current.textContent = String(current + 1).padStart(2, "0");
+          }
+          document.querySelectorAll("[data-dot]").forEach((dot, di) => {
+            dot.style.transform = `scaleY(${di === current ? 1 : 0.25})`;
+            dot.style.opacity = di === current ? "1" : "0.3";
+          });
+        };
+
+        show(0);
+
+        const trigger = ScrollTrigger.create({
+          trigger: root.current,
+          start: "top top",
+          end: `+=${n * 85}%`,
+          pin: true,
+          scrub: 0.6,
+          anticipatePin: 1,
+          onRefresh: (self) => show(self.progress),
+          onUpdate: (self) => show(self.progress),
         });
 
-        for (let i = 0; i < n; i++) {
-          const inAt = i === 0 ? null : i - 0.25;
-          const outAt = i === n - 1 ? null : i + 0.7;
-          const lines = `[data-slide='${i}'] .h-line > span`;
-          const fades = `[data-slide='${i}'] .h-fade`;
-
-          // Slow push-in across the whole segment
-          tl.to(`.hero-img-${i}`, { scale: 1, duration: 1.5, ease: "none" }, Math.max(0, i - 0.3));
-
-          if (inAt !== null) {
-            tl.to(`.hero-img-${i}`, { opacity: 1, duration: 0.5, ease: "none" }, inAt - 0.1);
-            // Pull into focus as it rises
-            tl.to(
-              lines,
-              {
-                z: 0,
-                y: 0,
-                opacity: 1,
-                rotateX: 0,
-                duration: 0.55,
-                stagger: 0.08,
-                ease: "power3.out",
-              },
-              inAt
-            );
-            tl.to(fades, { opacity: 1, y: 0, duration: 0.45, stagger: 0.05 }, inAt + 0.1);
-          }
-
-          if (outAt !== null) {
-            tl.to(`.hero-img-${i}`, { opacity: 0, duration: 0.5, ease: "none" }, outAt + 0.05);
-            // Drop out of focus on the way up and out
-            tl.to(
-              lines,
-              {
-                z: 420,
-                y: -40,
-                opacity: 0,
-                rotateX: 26,
-                duration: 0.5,
-                stagger: 0.06,
-                ease: "power2.in",
-              },
-              outAt
-            );
-            tl.to(fades, { opacity: 0, y: -20, duration: 0.35, stagger: 0.04 }, outAt);
-          }
-        }
-
-        // Scroll cue fades out as soon as you move
         gsap.to(".scroll-cue", {
           opacity: 0,
           scrollTrigger: { trigger: root.current, start: "top top", end: "+=180", scrub: true },
         });
 
-        return () => tl.kill();
+        return () => trigger.kill();
       });
 
       return () => mm.revert();
@@ -206,7 +159,7 @@ export default function Hero({ ready }) {
       <div ref={cam} className="absolute inset-[-4%] will-change-transform">
         <div className="hero-handheld absolute inset-0 will-change-transform">
           {heroSlides.map((s, i) => (
-            <div key={s.img} className={`hero-img-${i} absolute inset-0`}>
+            <div key={s.img} className={`hero-img-${i} absolute inset-[-6%] origin-center will-change-transform`}>
               <Image
                 src={s.img}
                 alt=""
@@ -254,12 +207,12 @@ export default function Hero({ ready }) {
             >
               <p className="h-fade eyebrow mb-5 md:mb-7">{s.kicker}</p>
 
-              <h1 className="display text-bone [perspective:1100px] [transform-style:preserve-3d]">
+              <h1 className="display text-bone">
                 <span className="h-line block text-[clamp(2.15rem,10vw,3.25rem)] leading-[1.05] md:text-[6.1vw]">
-                  <span className="sweep block [transform-style:preserve-3d]">{s.line1}</span>
+                  <span className="sweep block">{s.line1}</span>
                 </span>
                 <span className="h-line block text-[clamp(2.15rem,10vw,3.25rem)] leading-[1.05] md:text-[6.1vw]">
-                  <span className="sweep block text-steel-400 [transform-style:preserve-3d]">
+                  <span className="sweep block text-steel-400">
                     {s.line2}
                   </span>
                 </span>
