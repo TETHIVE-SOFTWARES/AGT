@@ -26,6 +26,73 @@ const emptyForm = {
   preferred: "",
 };
 
+function TownField({ value, onChange }) {
+  const root = useRef(null);
+  const [open, setOpen] = useState(false);
+  const typed = value.trim().toLowerCase();
+  const exact = areas.some((town) => town.toLowerCase() === typed);
+  const source = !typed || exact ? areas : areas.filter((town) => town.toLowerCase().includes(typed));
+  const matches = [...source].sort((a, b) => a.localeCompare(b));
+
+  useEffect(() => {
+    const close = (event) => {
+      if (!root.current?.contains(event.target)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, []);
+
+  return (
+    <div ref={root} className="relative">
+      <input
+        className={LINE}
+        placeholder="Delivery town"
+        value={value}
+        autoComplete="off"
+        aria-expanded={open}
+        aria-controls="delivery-towns"
+        aria-autocomplete="list"
+        onFocus={() => setOpen(true)}
+        onChange={(event) => {
+          onChange(event);
+          setOpen(true);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") setOpen(false);
+        }}
+      />
+      {open && matches.length ? (
+        <ul
+          id="delivery-towns"
+          role="listbox"
+          data-lenis-prevent
+          className="absolute left-0 right-0 top-full z-30 mt-1 max-h-60 overflow-y-auto overscroll-contain rounded-[8px] border border-bone/15 bg-ink py-1 shadow-[0_16px_40px_rgb(var(--c-bone)/0.12)]"
+        >
+          {matches.map((town) => (
+            <li key={town}>
+              <button
+                type="button"
+                role="option"
+                aria-selected={value === town}
+                className={`block w-full px-4 py-2.5 text-left text-[16px] font-medium hover:bg-ink-800 ${
+                  value === town ? "text-steel" : "text-bone"
+                }`}
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => {
+                  onChange({ target: { value: town } });
+                  setOpen(false);
+                }}
+              >
+                {town}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
 function Mark({ children }) {
   return (
     <svg
@@ -409,12 +476,7 @@ export default function ContactYard() {
                   </label>
                   <label className="block">
                     <span className="sr-only">Delivery town</span>
-                    <input className={LINE} placeholder="Delivery town" list="delivery-towns" value={form.town} onChange={set("town")} />
-                    <datalist id="delivery-towns">
-                      {areas.map((town) => (
-                        <option key={town} value={town} />
-                      ))}
-                    </datalist>
+                    <TownField value={form.town} onChange={set("town")} />
                   </label>
                 </div>
 

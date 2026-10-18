@@ -104,7 +104,7 @@ export default function EventArticle({ slug, initial = undefined }) {
             <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 md:grid-cols-3 md:gap-4">
               {images.map((image, i) => (
                 <button
-                  key={`${image.src}-${i}`}
+                  key={`photo-${i}`}
                   type="button"
                   onClick={() => setPhoto(i)}
                   aria-current={i === photo ? "true" : undefined}

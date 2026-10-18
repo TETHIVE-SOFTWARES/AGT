@@ -226,7 +226,11 @@ export default function ApplicationForm({ jobs: jobsProp, role }) {
                   </Field>
                 </div>
                 <div className="mt-10 flex justify-center">
-                  <button type="submit" className="btn btn-solid" disabled={sending}>
+                  <button
+                    type="submit"
+                    className="btn btn-solid !min-w-[220px] !justify-center !px-14 !py-5 !text-[20px]"
+                    disabled={sending}
+                  >
                     {sending ? "Sending" : "Send"}
                   </button>
                 </div>

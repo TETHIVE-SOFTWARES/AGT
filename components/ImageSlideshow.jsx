@@ -28,8 +28,9 @@ function Placeholder() {
 }
 
 function SlideImage({ image, eager, sizes, fit = "cover" }) {
-  const src = image.src;
+  const src = typeof image?.src === "string" ? image.src : "";
   const fitClass = fit === "contain" ? "object-contain" : "object-cover";
+  if (!src) return null;
   if (src.startsWith("data:") || src.startsWith("blob:")) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
@@ -185,7 +186,7 @@ export default function ImageSlideshow({
       >
         {slides.map((image, i) => (
           <div
-            key={`${image.src}-${i}`}
+            key={`slide-${i}`}
             className={`absolute inset-0 motion-reduce:transition-none ${
               i === index ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
@@ -207,7 +208,7 @@ export default function ImageSlideshow({
             <div className={`absolute bottom-4 left-3 z-20 flex items-center gap-1.5 ${controlVisibility}`}>
               {slides.map((image, i) => (
                 <button
-                  key={`${image.src}-dot-${i}`}
+                  key={`dot-${i}`}
                   type="button"
                   aria-label={`Show photo ${pad(i + 1)}`}
                   aria-current={i === index ? "true" : undefined}
@@ -227,7 +228,7 @@ export default function ImageSlideshow({
         <div className="mt-3 flex gap-2">
           {slides.map((image, i) => (
             <button
-              key={`${image.src}-thumb-${i}`}
+              key={`thumb-${i}`}
               type="button"
               aria-label={`Show photo ${pad(i + 1)}`}
               aria-current={i === index ? "true" : undefined}

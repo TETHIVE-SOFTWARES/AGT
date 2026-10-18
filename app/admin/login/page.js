@@ -1,7 +1,6 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import AdminLogin from "@/components/admin/AdminLogin";
-import { ADMIN_COOKIE, adminToken, safeEqual } from "@/lib/admin-auth";
+import { deskAuthed } from "@/lib/admin-session";
 
 export const metadata = {
   title: "Desk login — Ambika Global Traders",
@@ -9,9 +8,7 @@ export const metadata = {
 };
 
 export default async function AdminLoginPage() {
-  const expected = await adminToken(process.env.ADMIN_PASSWORD || "");
-  const got = cookies().get(ADMIN_COOKIE)?.value || "";
-  if (expected && safeEqual(got, expected)) redirect("/admin");
+  if (await deskAuthed()) redirect("/admin");
 
   return (
     <main className="mx-auto max-w-[1680px] px-5 pb-16 pt-32 md:px-10 md:pb-24">

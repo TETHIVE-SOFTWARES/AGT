@@ -29,7 +29,6 @@ function blank() {
     date: "",
     summary: "",
     description: "",
-    products: "",
     featured: false,
     cover: null,
     gallery: [],
@@ -64,7 +63,6 @@ function fromEvent(event) {
     date: toInputDate(event.date),
     summary: event.summary,
     description: event.description,
-    products: (event.products || []).join(", "),
     featured: Boolean(event.featured),
     cover: event.coverImage
       ? { key: event.coverImage, url: event.coverImage, file: null, preview: event.coverImage }
@@ -144,7 +142,6 @@ export default function EventForm({ eventId = "" }) {
       date: toDisplayDate(form.date),
       summary: form.summary.trim(),
       description: form.description.trim(),
-      products: form.products.split(",").map((item) => item.trim()).filter(Boolean),
       featured: form.featured,
       coverImage,
       gallery,
@@ -232,16 +229,6 @@ export default function EventForm({ eventId = "" }) {
             <span className={LABEL}>Description</span>
             <textarea className={`${FIELD} resize-none`} rows={8} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
           </label>
-          <label className="block">
-            <span className={LABEL}>Products covered</span>
-            <input
-              className={FIELD}
-              placeholder="Comma separated"
-              value={form.products}
-              onChange={(e) => setForm({ ...form, products: e.target.value })}
-            />
-          </label>
-
           {notice ? (
             <p className={`mt-8 text-[13px] font-semibold uppercase tracking-[0.14em] ${noticeBad ? "text-sand" : "text-steel"}`}>
               {notice}
