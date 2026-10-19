@@ -230,8 +230,8 @@ export default function Hero({ ready }) {
           <a href="/#products" className="btn btn-solid w-full justify-center sm:w-auto">
             View the catalogue
           </a>
-          <a href={company.social.whatsapp} target="_blank" rel="noreferrer" className="btn btn-ghost w-full justify-center sm:w-auto">
-            WhatsApp a quote
+          <a href={`mailto:${company.email}?subject=Quote%20request`} className="btn btn-ghost w-full justify-center sm:w-auto">
+            Mail a quote
           </a>
         </div>
       </div>

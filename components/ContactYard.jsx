@@ -288,12 +288,10 @@ export default function ContactYard() {
                 Call the counter
               </a>
               <a
-                href={company.social.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`mailto:${company.email}?subject=Quote%20request`}
                 className="btn btn-ghost w-full justify-center sm:w-auto"
               >
-                WhatsApp a quote
+                Mail a quote
               </a>
             </div>
           </>
