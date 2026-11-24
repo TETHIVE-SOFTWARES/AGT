@@ -22,8 +22,8 @@ export const metadata = {
     "Ambika Global Traders",
   ],
   icons: {
-    icon: "/brands/agt-logo.png",
-    apple: "/brands/agt-logo.png",
+    icon: "/brands/agt-logo-ink.png",
+    apple: "/brands/agt-logo-ink.png",
   },
   openGraph: {
     title: "Ambika Global Traders — Building Materials, Nagercoil",
@@ -34,7 +34,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#07090C",
+  themeColor: "#F6F4F0",
 };
 
 export default function RootLayout({ children }) {

@@ -14,7 +14,7 @@ export default function Ticker() {
   useEffect(() => {
     const { gsap, ScrollTrigger } = initGsap();
     const el = track.current;
-    if (!el) return;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
       const half = el.scrollWidth / 2;
@@ -62,7 +62,7 @@ export default function Ticker() {
   );
 
   return (
-    <section className="on-dark hair-t hair-b relative overflow-hidden bg-ink-800">
+    <section className="hair-t hair-b relative overflow-hidden bg-ink">
       <div className="sprockets" />
 
       <div className="relative py-4 md:py-6">

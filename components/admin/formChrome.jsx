@@ -7,7 +7,7 @@ export const FIELD = "mt-2 w-full bg-transparent text-[19px] text-bone outline-n
 export const STRIP = "border-b border-bone/15 bg-ink-800/60 px-4 py-3 focus-within:border-steel";
 
 export const GLASS =
-  "relative border border-bone/10 bg-ink/55 p-6 backdrop-blur-[3px] [color-scheme:dark] md:p-10";
+  "relative border border-bone/10 bg-ink/55 p-6 backdrop-blur-[3px] [color-scheme:light] md:p-10";
 
 export const WELL = "relative overflow-hidden border border-bone/10 bg-ink/80";
 

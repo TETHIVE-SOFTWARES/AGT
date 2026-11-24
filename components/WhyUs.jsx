@@ -156,15 +156,6 @@ export default function WhyUs() {
                 className="why-media absolute inset-0"
               />
 
-              {/* Only a soft blend into the text side — the photo stays clean */}
-              <div
-                className={`absolute inset-0 max-md:bg-[linear-gradient(180deg,transparent_46%,rgb(var(--c-ink)/0.92)_100%)] ${
-                  i % 2 === 1
-                    ? "md:bg-[linear-gradient(270deg,rgb(var(--c-ink)/0.9)_0%,transparent_26%)]"
-                    : "md:bg-[linear-gradient(90deg,rgb(var(--c-ink)/0.9)_0%,transparent_26%)]"
-                }`}
-              />
-
               <div className="rays" />
               <div className="flare flare-streak" style={{ top: "34%", left: "-10%" }} />
             </div>

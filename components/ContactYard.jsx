@@ -284,7 +284,7 @@ export default function ContactYard() {
           <>
             <YardStatus />
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a href="tel:+918870183231" className="btn btn-solid w-full justify-center sm:w-auto">
+              <a href="tel:+916385801701" className="btn btn-solid w-full justify-center sm:w-auto">
                 Call the counter
               </a>
               <a
@@ -313,7 +313,7 @@ export default function ContactYard() {
                 </Mark>
               }
               action={
-                <a href="tel:+918870183231" className="link-sweep font-mono text-[15px] font-semibold uppercase tracking-[0.14em] text-steel">
+                <a href="tel:+916385801701" className="link-sweep font-mono text-[15px] font-semibold uppercase tracking-[0.14em] text-steel">
                   Call now
                 </a>
               }
@@ -355,7 +355,7 @@ export default function ContactYard() {
                 </a>
               }
             >
-              <p className="text-[17px] leading-relaxed text-bone">+91 63858 01701</p>
+              <p className="text-[17px] leading-relaxed text-bone">{company.phones[0]}</p>
             </Reach>
 
             <Reach
@@ -408,11 +408,13 @@ export default function ContactYard() {
               }
             >
               <p className="text-[17px] leading-relaxed text-bone">
-                8-105/3, Balamore Road
+                8/105/3, Balamore Road
                 <br />
-                Erachakulam, Nagercoil
+                Erachakulam
                 <br />
-                Tamil Nadu 629901
+                Kanyakumari district
+                <br />
+                629901
               </p>
             </Reach>
           </div>
@@ -617,7 +619,7 @@ export default function ContactYard() {
           </p>
           <div data-reveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {areas.map((town) => (
-              <span key={town} className="flex min-h-[52px] items-center justify-center border border-bone/20 px-3 py-3 text-center font-mono text-[12px] uppercase leading-snug tracking-[0.08em] text-bone-600 sm:tracking-[0.12em]">
+              <span key={town} className="flex min-h-[52px] items-center justify-center border border-bone/20 px-3 py-3 text-center font-mono text-[12px] font-semibold uppercase leading-snug tracking-[0.08em] text-bone sm:tracking-[0.12em]">
                 {town}
               </span>
             ))}
@@ -658,7 +660,7 @@ function YardCard() {
       <a href={company.maps} target="_blank" rel="noopener noreferrer" className="btn btn-solid mt-4">
         Open the yard in Maps
       </a>
-      <a href="tel:+918870183231" className="link-sweep mt-4 block font-mono text-[12px] uppercase tracking-[0.18em] text-steel">
+      <a href="tel:+916385801701" className="link-sweep mt-4 block font-mono text-[12px] uppercase tracking-[0.18em] text-steel">
         Call before you visit
       </a>
     </>

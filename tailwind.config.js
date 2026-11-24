@@ -4,11 +4,9 @@ module.exports = {
   theme: {
     extend: {
       /**
-       * Colours resolve through CSS variables rather than fixed hex, so a
-       * section can flip its whole palette by adding `.on-dark`. `ink` is
-       * always the surface and `bone` always the type — only what they point
-       * at changes. That is what lets paper reading sections and near-black
-       * cinematic sections share one set of components.
+       * Colours resolve through CSS variables rather than fixed hex.
+       * `ink` is the paper surface and `bone` is the type. The site stays
+       * on this light palette.
        */
       colors: {
         ink: {

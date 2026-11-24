@@ -1,6 +1,6 @@
 export default function FormShell({ children }) {
   return (
-    <div className="on-dark relative z-10 -mt-12 border border-bone/10 bg-ink-800 p-6 [color-scheme:dark] md:p-12">
+    <div className="relative z-10 -mt-12 border border-bone/10 bg-ink-800 p-6 [color-scheme:light] md:p-12">
       <FrameMarks />
       {children}
     </div>

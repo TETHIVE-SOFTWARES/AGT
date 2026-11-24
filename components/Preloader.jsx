@@ -67,7 +67,7 @@ export default function Preloader({ onDone }) {
   if (gone) return null;
 
   return (
-    <div ref={root} className="on-dark fixed inset-0 z-[80]" aria-hidden>
+    <div ref={root} className="fixed inset-0 z-[80]" aria-hidden>
       <div className="absolute inset-0 flex">
         {[0, 1, 2, 3, 4].map((i) => (
           <div key={i} className="pl-panel h-full flex-1 bg-ink" />

@@ -6,7 +6,7 @@ export default function FormStage({ image, children }) {
   const blur = image ? blurFor(image) : undefined;
 
   return (
-    <div className="on-dark relative">
+    <div className="relative">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div className="sticky top-0 h-screen">
           {image ? (
@@ -21,7 +21,6 @@ export default function FormStage({ image, children }) {
               className="object-cover"
             />
           ) : null}
-          <div className="absolute inset-0 bg-ink/70" />
         </div>
       </div>
       <div className="relative">{children}</div>

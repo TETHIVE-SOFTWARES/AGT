@@ -20,7 +20,7 @@ export default function PosterLightbox({ job, onClose }) {
 
   return (
     <div
-      className="on-dark fixed inset-0 z-[80] flex items-center justify-center bg-ink/92 p-4 md:p-10"
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/92 p-4 md:p-10"
       role="dialog"
       aria-modal="true"
       aria-label={`${job.title} poster`}
@@ -52,7 +52,7 @@ export default function PosterLightbox({ job, onClose }) {
 export function GeneratedPoster({ job }) {
   const lines = [job.qualification, job.experience, job.workingHours].filter(Boolean);
   return (
-    <div className="on-dark absolute inset-0 flex flex-col justify-between bg-ink p-6 md:p-8">
+    <div className="absolute inset-0 flex flex-col justify-between bg-ink p-6 md:p-8">
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         style={{
@@ -62,7 +62,7 @@ export function GeneratedPoster({ job }) {
         }}
       />
       <Image
-        src="/brands/agt-logo.png"
+        src="/brands/agt-logo-ink.png"
         alt=""
         width={56}
         height={72}

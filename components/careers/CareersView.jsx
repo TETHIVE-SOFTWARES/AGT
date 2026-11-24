@@ -130,7 +130,7 @@ export default function CareersView() {
 
   return (
     <div ref={root}>
-      <section className="on-dark relative min-h-[55vh] overflow-hidden bg-ink">
+      <section className="on-photo relative min-h-[55vh] overflow-hidden bg-ink">
         <div className="cr-shot absolute inset-[-8%] will-change-transform">
           <Image
             src={HERO}
@@ -143,10 +143,7 @@ export default function CareersView() {
             className="object-cover"
           />
         </div>
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--c-ink)/0.34)_0%,rgb(var(--c-ink)/0)_26%,rgb(var(--c-ink)/0.1)_48%,rgb(var(--c-ink)/0.62)_78%,rgb(var(--c-ink)/0.94)_100%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(94deg,rgb(var(--c-ink)/0.72)_0%,rgb(var(--c-ink)/0.3)_34%,transparent_62%)]" />
-
-        <div className="relative z-10 mx-auto flex min-h-[55vh] max-w-[1680px] flex-col justify-end px-5 pb-12 pt-28 md:px-10 md:pb-16 md:pt-36">
+        <div className="photo-type relative z-10 mx-auto flex min-h-[55vh] max-w-[1680px] flex-col justify-end px-5 pb-12 pt-28 md:px-10 md:pb-16 md:pt-36">
           <p className="cr-rise mb-6 font-mono text-[12px] uppercase tracking-[0.24em] text-bone-500">
             <Link href="/" className="link-sweep text-bone-600 transition-colors hover:text-bone">
               Home

@@ -29,41 +29,14 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Near-black cinematic sections. Same components, inverted palette — this is
-   the contrast that makes the page feel like film rather than a brochure. */
-.on-dark {
-  --c-ink:       7 9 12;
-  --c-ink-800:   11 14 19;
-  --c-ink-700:   17 21 28;
-  --c-ink-600:   24 29 38;
-  --c-ink-500:   34 41 53;
-
-  --c-bone:      237 234 228;
-  --c-bone-600:  210 206 198;
-  --c-bone-500:  176 171 162;
-  --c-bone-400:  128 123 114;
-
-  --c-steel:     46 127 184;
-  --c-steel-400: 79 163 220;
-  --c-steel-300: 124 194 238;
-  --c-steel-600: 31 95 142;
-  --c-steel-700: 22 69 100;
-
-  --c-sand:      201 162 39;
-
-  --ink: rgb(var(--c-ink));
-  --steel: rgb(var(--c-steel));
-  --bone: rgb(var(--c-bone));
-}
-
-/* Deliberately no background-color or color here: the scope only redefines
-   variables. Painting on it would turn every transparent full-screen overlay
-   that carries the class — the menu, for one — into an opaque sheet. */
+/* The whole site stays on the paper palette above. `.on-dark` no longer
+   inverts surfaces to near-black. */
 
 * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 html {
   scroll-behavior: auto;
+  color-scheme: light;
   --font-display: var(--font-sans);
   --font-mono: var(--font-sans);
 }
@@ -168,7 +141,7 @@ input::placeholder, textarea::placeholder {
   opacity: 0;
   transition: opacity 0.55s var(--ease);
 }
-.group:hover .media-warm { opacity: 1; }
+.group:hover .media-warm { opacity: 0; }
 
 .graded-wrap { position: relative; overflow: hidden; }
 
@@ -450,10 +423,10 @@ input::placeholder, textarea::placeholder {
   height: 15px;
   background-repeat: repeat-x;
   background-size: 34px 15px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='15'%3E%3Crect x='9' y='3.5' width='16' height='8' rx='2.2' fill='%23EDEAE4' fill-opacity='0.16'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='15'%3E%3Crect x='9' y='3.5' width='16' height='8' rx='2.2' fill='%230F1319' fill-opacity='0.18'/%3E%3C/svg%3E");
 }
 
-/* Map sits in grayscale until hover. Dark sections dim it further. */
+/* Map sits in grayscale until hover. */
 .yard-map iframe {
   filter: grayscale(1);
   transition: filter 700ms var(--ease);
@@ -462,19 +435,31 @@ input::placeholder, textarea::placeholder {
 .yard-map:focus-within iframe {
   filter: none;
 }
-.on-dark .yard-map iframe {
-  filter: grayscale(1) brightness(0.55);
-}
-.on-dark .yard-map:hover iframe,
-.on-dark .yard-map:focus-within iframe {
-  filter: brightness(0.82);
-}
 
 /* ---------- Chapter cut ---------- */
 .cut-rule {
   transform: scaleX(0);
   transform-origin: left center;
 }
+
+/* Type that sits on a photograph, with no wash behind it. */
+.photo-type,
+.photo-type .eyebrow,
+.photo-type .text-bone,
+.photo-type .text-bone-600,
+.photo-type .text-bone-500,
+.photo-type .text-bone-400 {
+  color: #fff;
+}
+.photo-type .text-steel-400 { color: rgb(79 163 220); }
+.photo-type a:hover { color: #fff; }
+.photo-type .btn-ghost {
+  border-color: rgb(255 255 255 / 0.55);
+  color: #fff;
+}
+.photo-type .btn-solid { color: rgb(var(--c-ink)); }
+.photo-type .btn-solid:hover,
+.photo-type .btn-ghost:hover { color: #fff; }
 
 /* ---------- Pinned sections need no scroll-snap ---------- */
 .pin-wrap { will-change: transform; }

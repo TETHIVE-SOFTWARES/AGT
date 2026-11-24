@@ -109,8 +109,6 @@ export default function Contact({ lead = true, withMap = false }) {
               scrim={false}
               className="ct-media absolute inset-0"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--c-ink)/0.86)_0%,rgb(var(--c-ink)/0.66)_45%,rgb(var(--c-ink)/0.94)_100%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_80%_20%,rgb(var(--c-steel)/0.10)_0%,transparent_60%)]" />
             <div className="rays" />
             <div className="flare flare-core" style={{ top: "8%", right: "12%" }} />
             <div className="flare flare-streak" style={{ top: "18%", right: "-8%" }} />
@@ -124,7 +122,6 @@ export default function Contact({ lead = true, withMap = false }) {
               scrim={false}
               className="absolute inset-0"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/80 to-ink/60" />
           </>
         )}
       </div>
@@ -225,8 +222,8 @@ export default function Contact({ lead = true, withMap = false }) {
               <button type="submit" className="btn btn-solid">
                 Send on WhatsApp
               </button>
-              <a href={`tel:${company.phones[1].replace(/\s/g, "")}`} className="btn btn-ghost">
-                Or call {company.phones[1]}
+              <a href={`tel:${company.phones[0].replace(/\s/g, "")}`} className="btn btn-ghost">
+                Or call {company.phones[0]}
               </a>
             </div>
 
@@ -316,8 +313,8 @@ export default function Contact({ lead = true, withMap = false }) {
             <p className={`${kicker} mb-5`}>The yard on the map</p>
             <div className="overflow-hidden rounded-2xl border border-bone/10">
               <iframe
-                title="Ambika Global Traders, Erachakulam, Nagercoil"
-                src="https://maps.google.com/maps?q=Ambika+Global+Traders+Erachakulam+Nagercoil&output=embed"
+                title="Ambika Global Traders, Erachakulam, Kanyakumari"
+                src="https://maps.google.com/maps?q=8/105/3+Balamore+Road+Erachakulam+Kanyakumari+629901&output=embed"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="block h-[260px] w-full md:h-[420px]"

@@ -109,7 +109,7 @@ export default function Footer() {
           <span>
             © {new Date().getFullYear()} {company.name}. All rights reserved.
           </span>
-          <span>{company.tagline} · Nagercoil, Tamil Nadu</span>
+          <span>{company.tagline} · Erachakulam, Kanyakumari</span>
         </div>
       </div>
     </footer>

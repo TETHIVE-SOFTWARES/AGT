@@ -114,7 +114,6 @@ export default function Milestones() {
                   sizes="(max-width: 1024px) 100vw, 33vw"
                   className="ms-media absolute inset-0"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
                 <span className="pointer-events-none absolute left-5 top-5 z-30 bg-ink/90 px-3 py-1.5 font-mono text-[12px] tracking-[0.2em] text-steel-300">
                   {m.date}
                 </span>

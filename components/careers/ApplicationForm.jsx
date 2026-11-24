@@ -245,7 +245,7 @@ export default function ApplicationForm({ jobs: jobsProp, role }) {
             </a>
             {" / "}
             <a href={company.social.whatsapp} target="_blank" rel="noreferrer" className="link-sweep text-bone">
-              WhatsApp {company.phones[1]}
+              WhatsApp {company.phones[0]}
             </a>
           </p>
         </div>

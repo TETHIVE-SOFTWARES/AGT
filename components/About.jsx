@@ -127,8 +127,8 @@ export default function About() {
               <a href="/#products" className="btn btn-ghost">
                 What we stock
               </a>
-              <a href={`tel:${company.phones[1].replace(/\s/g, "")}`} className="btn btn-ghost">
-                {company.phones[1]}
+              <a href={`tel:${company.phones[0].replace(/\s/g, "")}`} className="btn btn-ghost">
+                {company.phones[0]}
               </a>
             </div>
           </div>

@@ -10,8 +10,6 @@ import { company, nav } from "@/lib/data";
 export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [overDark, setOverDark] = useState(true);
   const bar = useRef(null);
   const overlay = useRef(null);
   const tl = useRef(null);
@@ -30,32 +28,9 @@ export default function Nav() {
           ease: "power3.out",
         });
       },
-      onToggle: (self) => setScrolled(self.isActive),
     });
     return () => st.kill();
   }, [open]);
-
-  /**
-   * The bar floats over both palettes, so it has to pick one. It carries the
-   * dark scope while any `.on-dark` section is under it, and the light scope
-   * otherwise — checked against the element actually beneath the bar rather
-   * than against scroll positions, so it stays correct through the pins.
-   */
-  useEffect(() => {
-    const { ScrollTrigger } = initGsap();
-    const probe = () => {
-      const y = (bar.current?.offsetHeight ?? 64) + 8;
-      const el = document.elementFromPoint(window.innerWidth / 2, y);
-      setOverDark(Boolean(el?.closest(".on-dark")));
-    };
-    probe();
-    const st = ScrollTrigger.create({ start: 0, end: "max", onUpdate: probe });
-    window.addEventListener("resize", probe);
-    return () => {
-      st.kill();
-      window.removeEventListener("resize", probe);
-    };
-  }, []);
 
   /* Build the overlay timeline once */
   useEffect(() => {
@@ -128,8 +103,6 @@ export default function Nav() {
     return pathname === href;
   };
 
-  const dark = overDark || open;
-
   const desk = nav.filter((item) => item.label !== "Home");
 
   return (
@@ -137,13 +110,13 @@ export default function Nav() {
       <header
         ref={bar}
         className={`fixed inset-x-0 top-0 z-[70] border-b transition-[background-color,border-color] duration-500 ${
-          dark ? "on-dark" : ""
-        } ${open ? "border-transparent bg-transparent" : scrolled ? "border-bone/10 bg-ink/90" : "max-md:border-bone/10 max-md:bg-ink border-transparent bg-transparent"}`}
+          open ? "border-transparent bg-transparent" : "border-bone/10 bg-ink/95"
+        }`}
       >
         <div className="mx-auto flex max-w-[1680px] items-center justify-between px-5 py-4 md:px-10 md:py-5">
           <Link href="/#top" className="flex items-center gap-3" aria-label={company.name}>
             <Image
-              src={dark ? "/brands/agt-logo.png" : "/brands/agt-logo-ink.png"}
+              src="/brands/agt-logo-ink.png"
               alt=""
               width={44}
               height={56}
@@ -200,7 +173,7 @@ export default function Nav() {
       {/* ---------- Full-screen overlay menu ---------- */}
       <div
         ref={overlay}
-        className="on-dark pointer-events-none fixed inset-0 z-[60]"
+        className="pointer-events-none fixed inset-0 z-[60]"
         aria-hidden={!open}
       >
         <div className="ov-bg absolute inset-0 bg-ink-800 [clip-path:inset(0_0_100%_0)]">
@@ -249,10 +222,10 @@ export default function Nav() {
               <div className="ov-meta">
                 <p className="eyebrow mb-3">Talk to us</p>
                 <a
-                  href={`tel:${company.phones[1].replace(/\s/g, "")}`}
+                  href={`tel:${company.phones[0].replace(/\s/g, "")}`}
                   className="link-sweep block text-sm text-bone"
                 >
-                  {company.phones[1]}
+                  {company.phones[0]}
                 </a>
                 <a
                   href={`mailto:${company.email}`}

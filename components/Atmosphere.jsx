@@ -36,9 +36,9 @@ export default function Atmosphere() {
         SPRITE / 2, SPRITE / 2, 0,
         SPRITE / 2, SPRITE / 2, SPRITE / 2
       );
-      g.addColorStop(0, "rgba(99,146,190,1)");
-      g.addColorStop(0.45, "rgba(99,146,190,0.3)");
-      g.addColorStop(1, "rgba(99,146,190,0)");
+      g.addColorStop(0, "rgba(154,123,24,0.45)");
+      g.addColorStop(0.45, "rgba(31,111,168,0.16)");
+      g.addColorStop(1, "rgba(31,111,168,0)");
       sx.fillStyle = g;
       sx.fillRect(0, 0, SPRITE, SPRITE);
     }
@@ -51,7 +51,7 @@ export default function Atmosphere() {
         // Mostly rising, with a lazy sideways drift
         vy: -(0.012 + Math.random() * 0.045),
         vx: (Math.random() - 0.5) * 0.022,
-        a: 0.06 + Math.random() * 0.2,
+        a: 0.04 + Math.random() * 0.08,
         // Each mote breathes at its own rate
         tw: 0.4 + Math.random() * 1.6,
         ph: Math.random() * Math.PI * 2,

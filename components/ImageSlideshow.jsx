@@ -21,7 +21,7 @@ function Placeholder() {
         }}
       />
       <div className="absolute inset-0 flex items-center justify-center">
-        <Image src="/brands/agt-logo.png" alt="" width={56} height={72} className="h-14 w-auto" />
+        <Image src="/brands/agt-logo-ink.png" alt="" width={56} height={72} className="h-14 w-auto" />
       </div>
     </div>
   );

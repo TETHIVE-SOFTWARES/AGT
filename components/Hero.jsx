@@ -8,7 +8,6 @@ import { company, heroSlides } from "@/lib/data";
 
 export default function Hero({ ready }) {
   const root = useRef(null);
-  const indexRef = useRef(null);
   const cam = useRef(null);
 
   /* Intro: the shutter opens, the lens finds focus */
@@ -116,14 +115,6 @@ export default function Hero({ ready }) {
             });
             gsap.set(`.hero-img-${s}`, { autoAlpha: on ? 1 : 0, scale: on ? zoom : 1.18 });
           }
-
-          if (indexRef.current) {
-            indexRef.current.textContent = String(current + 1).padStart(2, "0");
-          }
-          document.querySelectorAll("[data-dot]").forEach((dot, di) => {
-            dot.style.transform = `scaleY(${di === current ? 1 : 0.25})`;
-            dot.style.opacity = di === current ? "1" : "0.3";
-          });
         };
 
         show(0);
@@ -139,11 +130,6 @@ export default function Hero({ ready }) {
           onUpdate: (self) => show(self.progress),
         });
 
-        gsap.to(".scroll-cue", {
-          opacity: 0,
-          scrollTrigger: { trigger: root.current, start: "top top", end: "+=180", scrub: true },
-        });
-
         return () => trigger.kill();
       });
 
@@ -154,7 +140,7 @@ export default function Hero({ ready }) {
   }, []);
 
   return (
-    <section id="top" ref={root} className="on-dark vignette relative h-screen w-full overflow-hidden bg-ink">
+    <section id="top" ref={root} className="relative h-screen w-full overflow-hidden bg-ink">
       {/* ---------- Background stack, on a drifting camera ---------- */}
       <div ref={cam} className="absolute inset-[-4%] will-change-transform">
         <div className="hero-handheld absolute inset-0 will-change-transform">
@@ -176,10 +162,6 @@ export default function Hero({ ready }) {
         </div>
       </div>
 
-      {/* Vignette + gradient wash, keeps type legible over any frame */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--c-ink)/0.34)_0%,rgb(var(--c-ink)/0)_26%,rgb(var(--c-ink)/0.1)_48%,rgb(var(--c-ink)/0.62)_78%,rgb(var(--c-ink)/0.94)_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(94deg,rgb(var(--c-ink)/0.72)_0%,rgb(var(--c-ink)/0.3)_34%,transparent_62%)]" />
-
       {/* ---------- Atmosphere: rays, flare, haze ---------- */}
       <div className="hero-atmos pointer-events-none absolute inset-0 opacity-0">
         <div className="rays" />
@@ -187,9 +169,6 @@ export default function Hero({ ready }) {
         {/* Anamorphic flare, hung off the light source in the frame */}
         <div className="flare flare-core" style={{ top: "16%", right: "18%" }} />
         <div className="flare flare-streak" style={{ top: "26%", right: "-6%" }} />
-
-        {/* Low haze rolling along the bottom of the frame */}
-        <div className="absolute inset-x-0 bottom-0 h-[46%] bg-[linear-gradient(0deg,rgb(var(--c-steel)/0.07)_0%,transparent_100%)] mix-blend-screen" />
       </div>
 
       {/* ---------- Shutter ---------- */}
@@ -197,7 +176,7 @@ export default function Hero({ ready }) {
       <div className="letterbox letterbox-b h-0" />
 
       {/* ---------- Headline stack ---------- */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1680px] flex-col justify-end px-5 pb-28 md:px-10 md:pb-28">
+      <div className="photo-type relative z-10 mx-auto flex h-full max-w-[1680px] flex-col justify-end px-5 pb-28 md:px-10 md:pb-28">
         <div className="relative">
           {heroSlides.map((s, i) => (
             <div
@@ -234,34 +213,6 @@ export default function Hero({ ready }) {
             Mail a quote
           </a>
         </div>
-      </div>
-
-      {/* ---------- Right-hand slide index ---------- */}
-      <div className="hero-chrome absolute right-5 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-4 md:right-10 md:flex">
-        <span ref={indexRef} className="font-mono text-[13px] tracking-[0.2em] text-bone">
-          01
-        </span>
-        <div className="flex flex-col gap-2">
-          {heroSlides.map((_, i) => (
-            <span
-              key={i}
-              data-dot
-              className="block h-10 w-px origin-center bg-bone transition-none"
-              style={{ transform: i === 0 ? "scaleY(1)" : "scaleY(0.25)", opacity: i === 0 ? 1 : 0.3 }}
-            />
-          ))}
-        </div>
-        <span className="font-mono text-[13px] tracking-[0.2em] text-bone-500">
-          0{heroSlides.length}
-        </span>
-      </div>
-
-      {/* ---------- Scroll cue ---------- */}
-      <div className="scroll-cue hero-chrome absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex">
-        <span className="font-mono text-[11px] tracking-[0.3em] text-bone-500">SCROLL</span>
-        <span className="relative block h-9 w-px overflow-hidden bg-bone/20">
-          <span className="absolute inset-x-0 top-0 block h-3 animate-[cue_1.8s_ease-in-out_infinite] bg-steel" />
-        </span>
       </div>
     </section>
   );

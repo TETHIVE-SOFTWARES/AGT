@@ -7,6 +7,15 @@ import { initGsap } from "@/lib/anim";
 import { products } from "@/lib/data";
 import Icon from "@/lib/icons";
 
+/* These shots are wider than the standard card, so the card follows the photo. */
+const fullFrame = {
+  Cement: "710 / 473",
+  "TMT Bars": "763 / 593",
+  "TMT Rings": "580 / 580",
+  Paints: "555 / 508",
+  "Seal & Dry Hi-Flex": "733 / 488",
+};
+
 export default function Products() {
   const root = useRef(null);
   const track = useRef(null);
@@ -95,21 +104,24 @@ export default function Products() {
             ref={track}
             className="flex w-full snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-5 pb-4 md:gap-6 md:px-10"
           >
-          {products.map((p) => (
+          {products.map((p) => {
+            const frame = fullFrame[p.title];
+            return (
             <article
               key={p.n}
-              className="pr-card p-card scanline group relative h-[68vh] min-h-[440px] max-h-[640px] w-[84vw] shrink-0 snap-start overflow-hidden border border-bone/10 bg-ink-700 sm:w-[54vw] md:w-[32vw] lg:w-[25vw]"
+              style={frame ? { aspectRatio: frame } : undefined}
+              className={`pr-card p-card scanline group relative h-[68vh] min-h-[440px] max-h-[640px] shrink-0 snap-start overflow-hidden border border-bone/10 bg-ink-700 ${
+                frame ? "w-auto" : "w-[84vw] sm:w-[54vw] md:w-[32vw] lg:w-[25vw]"
+              }`}
             >
               <Media
                 src={p.img}
                 alt={p.title}
-                sizes="(max-width: 768px) 78vw, 28vw"
+                sizes={frame ? "80vw" : "(max-width: 768px) 78vw, 28vw"}
+                fit={p.title === "Cement" || !frame ? "cover" : "contain"}
                 scrim={false}
                 className="pr-media absolute inset-0"
               />
-
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--c-ink)/0.3)_0%,rgb(var(--c-ink)/0)_34%,rgb(var(--c-ink)/0.88)_100%)]" />
-              <div className="absolute inset-0 bg-steel/0 transition-colors duration-500 group-hover:bg-steel/[0.07]" />
 
               {/* Index */}
               <span className="absolute left-5 top-5 z-10 font-mono text-[13px] tracking-[0.25em] text-bone-600 md:left-6 md:top-6">
@@ -133,19 +145,14 @@ export default function Products() {
               </span>
 
               {/* Body */}
-              <div className="absolute inset-x-0 bottom-0 z-10 p-5 md:p-7">
+              <div className="absolute inset-x-0 bottom-0 z-10 bg-ink/70 px-5 py-4 md:px-7 md:py-5">
                 <h3 className="display text-2xl leading-[1.05] text-bone md:text-[min(1.65vw,27px)]">
                   {p.title}
                 </h3>
-                <p className="mt-3 font-mono text-[11px] uppercase leading-relaxed tracking-[0.08em] text-steel-300 sm:text-[12px] sm:tracking-[0.14em]">
-                  {p.brands}
-                </p>
-                <p className="mt-4 max-h-28 overflow-hidden text-[13px] leading-relaxed text-bone-600 opacity-100 md:max-h-0 md:opacity-0 md:transition-all md:duration-700 md:group-hover:max-h-40 md:group-hover:opacity-100">
-                  {p.desc}
-                </p>
               </div>
             </article>
-          ))}
+            );
+          })}
 
             {/* Tail card — closes the sequence with a call to action */}
             <article className="relative flex h-[68vh] min-h-[440px] max-h-[640px] w-[84vw] shrink-0 snap-start flex-col justify-between border border-steel/25 bg-steel-700/50 p-6 sm:w-[54vw] md:w-[32vw] md:p-9 lg:w-[25vw]">

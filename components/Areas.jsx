@@ -85,7 +85,7 @@ export default function Areas() {
               key={a}
               className="ar-item flex min-h-[52px] items-center justify-center border border-bone/20 bg-ink px-3 py-3 text-center transition-colors duration-500 hover:border-steel"
             >
-              <span className="font-mono text-[12px] uppercase leading-snug tracking-[0.08em] text-bone-600 sm:tracking-[0.12em]">
+              <span className="font-mono text-[12px] font-semibold uppercase leading-snug tracking-[0.08em] text-bone sm:tracking-[0.12em]">
                 {a}
               </span>
             </div>

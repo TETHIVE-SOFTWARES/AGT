@@ -14,7 +14,7 @@ function LogoRow({ logos, reverse, rowRef }) {
           className="flex h-24 w-[180px] shrink-0 items-center justify-center px-6 md:h-28 md:w-[230px]"
         >
           <Image
-            src={`/brands/${b}.png`}
+            src={`/brands/${b}`}
             alt=""
             width={150}
             height={150}
