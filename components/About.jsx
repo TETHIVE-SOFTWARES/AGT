@@ -124,7 +124,7 @@ export default function About() {
             </p>
 
             <div className="mt-10 flex flex-wrap gap-3">
-              <a href="/#products" className="btn btn-ghost">
+              <a href="/products" className="btn btn-ghost">
                 What we stock
               </a>
               <a href={`tel:${company.phones[0].replace(/\s/g, "")}`} className="btn btn-ghost">

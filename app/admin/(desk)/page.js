@@ -14,11 +14,11 @@ export default function AdminHome() {
         eyebrow="Desk"
         title="The yard"
         accent="desk."
-        intro="Events and posters edited here show on the public pages in this browser. Nothing is sent to a server yet."
+        intro="Events, posters and products edited here show on the public pages in this browser. Nothing is sent to a server yet."
         crumb="Desk"
       />
       <section className="mx-auto max-w-[1680px] px-5 pb-16 pt-16 md:px-10 md:pb-24 md:pt-20">
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Link href="/admin/events" className="group relative border border-bone/10 bg-ink-800 p-8">
             <p className="eyebrow mb-4">01</p>
             <h2 className="display text-3xl text-bone">Events</h2>
@@ -32,6 +32,14 @@ export default function AdminHome() {
             <h2 className="display text-3xl text-bone">Careers</h2>
             <p className="mt-3 text-sm leading-relaxed text-bone-600">
               Upload a poster, replace it, or take it off the careers page.
+            </p>
+            <span className="absolute inset-x-0 bottom-0 block h-px w-0 bg-steel transition-all duration-700 group-hover:w-full" />
+          </Link>
+          <Link href="/admin/products" className="group relative border border-bone/10 bg-ink-800 p-8">
+            <p className="eyebrow mb-4">03</p>
+            <h2 className="display text-3xl text-bone">Products</h2>
+            <p className="mt-3 text-sm leading-relaxed text-bone-600">
+              Add a product with its photo, or edit one already on the catalogue.
             </p>
             <span className="absolute inset-x-0 bottom-0 block h-px w-0 bg-steel transition-all duration-700 group-hover:w-full" />
           </Link>

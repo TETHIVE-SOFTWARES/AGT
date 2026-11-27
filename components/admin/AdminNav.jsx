@@ -19,6 +19,7 @@ export default function AdminNav({ current }) {
       {item("/admin", "Desk")}
       {item("/admin/events", "Events")}
       {item("/admin/careers", "Careers")}
+      {item("/admin/products", "Products")}
       <form action={logoutAdmin} className="ml-auto">
         <button type="submit" className="link-sweep font-mono text-[13px] uppercase tracking-[0.18em] text-bone-600">
           Log out

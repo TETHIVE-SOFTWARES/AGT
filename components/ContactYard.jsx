@@ -5,14 +5,18 @@ import Media from "@/components/Media";
 import PageHero from "@/components/PageHero";
 import { initGsap } from "@/lib/anim";
 import { enquiryWhatsAppUrl, submitEnquiry } from "@/lib/api";
-import { areas, company, products } from "@/lib/data";
+import { cementBrands, tmtBrands, tmtSizesMm } from "@/data/catalog";
+import { getProducts } from "@/lib/api";
+import { areas, company } from "@/lib/data";
 
-const MATERIALS = [...products.map((product) => product.title), "Other"];
 const STAGES = ["Foundation", "Slab", "Plaster", "Finishing", "Not sure"];
 const REPLIES = ["Call", "WhatsApp"];
 
 const LINE =
   "min-h-12 w-full border-b border-bone/35 bg-transparent px-0 py-3.5 text-[17px] font-medium text-bone outline-none transition-colors placeholder:text-bone-500 focus:border-steel";
+
+const SELECT =
+  "mt-1.5 w-full border border-bone/15 bg-ink-800 px-3 py-2.5 text-sm text-bone outline-none focus:border-steel";
 
 const PILL = "btn btn-ghost cursor-pointer !px-4 !py-2.5 text-[13px] tracking-[0.1em]";
 const PILL_ON = "!border-steel !bg-steel !text-white";
@@ -175,11 +179,25 @@ export default function ContactYard() {
   const root = useRef(null);
   const [form, setForm] = useState(emptyForm);
   const [materials, setMaterials] = useState([]);
+  const [materialOptions, setMaterialOptions] = useState([]);
+  const [cementBrand, setCementBrand] = useState(cementBrands[0]);
+  const [tmtBrand, setTmtBrand] = useState(tmtBrands[0]);
+  const [tmtSize, setTmtSize] = useState(tmtSizesMm[0]);
+  const [ringBrand, setRingBrand] = useState(tmtBrands[0]);
+  const [ringSize, setRingSize] = useState(tmtSizesMm[0]);
   const [stage, setStage] = useState("");
   const [errors, setErrors] = useState({});
   const [sending, setSending] = useState("");
   const [sent, setSent] = useState(null);
   const [toast, setToast] = useState("");
+
+  const wantsCement = materials.includes("Cement");
+  const wantsTmt = materials.includes("TMT Bars");
+  const wantsRings = materials.includes("TMT Rings");
+
+  useEffect(() => {
+    getProducts().then((list) => setMaterialOptions(list.map((product) => product.title)));
+  }, []);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -211,6 +229,19 @@ export default function ContactYard() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    if (window.location.hash !== "#enquiry") return;
+    const target = document.getElementById("enquiry");
+    if (!target) return;
+    const go = () => {
+      const lenis = window.__lenis;
+      if (lenis) lenis.scrollTo(target, { offset: -96, duration: 1.2 });
+      else target.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    const t = window.setTimeout(go, 80);
+    return () => window.clearTimeout(t);
+  }, []);
+
   const set = (key) => (event) => {
     setForm((current) => ({ ...current, [key]: event.target.value }));
     setErrors((current) => ({ ...current, [key]: undefined }));
@@ -223,17 +254,30 @@ export default function ContactYard() {
     setErrors((current) => ({ ...current, materials: undefined }));
   };
 
-  const payload = () => ({
-    name: form.name.trim(),
-    phone: form.phone.trim(),
-    email: form.email.trim(),
-    products: materials,
-    service: materials.join(", "),
-    stage,
-    town: form.town.trim(),
-    message: form.notes.trim(),
-    preferred: form.preferred,
-  });
+  const payload = () => {
+    const labeled = materials.map((title) => {
+      if (title === "Cement") return `Cement (${cementBrand})`;
+      if (title === "TMT Bars") return `TMT Bars (${tmtBrand} · ${tmtSize} mm)`;
+      if (title === "TMT Rings") return `TMT Rings (${ringBrand} · ${ringSize} mm)`;
+      return title;
+    });
+    return {
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      email: form.email.trim(),
+      products: labeled,
+      service: labeled.join(", "),
+      cementBrand: wantsCement ? cementBrand : undefined,
+      tmtBrand: wantsTmt ? tmtBrand : undefined,
+      tmtSize: wantsTmt ? `${tmtSize} mm` : undefined,
+      ringBrand: wantsRings ? ringBrand : undefined,
+      ringSize: wantsRings ? `${ringSize} mm` : undefined,
+      stage,
+      town: form.town.trim(),
+      message: form.notes.trim(),
+      preferred: form.preferred,
+    };
+  };
 
   const submit = async (event) => {
     event.preventDefault();
@@ -287,11 +331,8 @@ export default function ContactYard() {
               <a href="tel:+916385801701" className="btn btn-solid w-full justify-center sm:w-auto">
                 Call the counter
               </a>
-              <a
-                href={`mailto:${company.email}?subject=Quote%20request`}
-                className="btn btn-ghost w-full justify-center sm:w-auto"
-              >
-                Mail a quote
+              <a href="#enquiry" className="btn btn-ghost w-full justify-center sm:w-auto">
+                Get a quote
               </a>
             </div>
           </>
@@ -483,7 +524,7 @@ export default function ContactYard() {
                 <div className="mt-8">
                   <p className="eyebrow mb-4">Materials</p>
                   <div className="flex flex-wrap gap-2" role="group" aria-label="Materials">
-                    {MATERIALS.map((title, index) => {
+                    {materialOptions.map((title, index) => {
                       const on = materials.includes(title);
                       return (
                         <button
@@ -500,6 +541,95 @@ export default function ContactYard() {
                     })}
                   </div>
                   {errors.materials ? <p role="alert" className="mt-3 font-mono text-[13px] text-sand">{errors.materials}</p> : null}
+
+                  {wantsCement ? (
+                    <label className="mt-5 block max-w-md">
+                      <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-bone-500">
+                        Cement brand
+                      </span>
+                      <select
+                        value={cementBrand}
+                        onChange={(e) => setCementBrand(e.target.value)}
+                        className={SELECT}
+                      >
+                        {cementBrands.map((brand) => (
+                          <option key={brand} value={brand}>
+                            {brand}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  ) : null}
+
+                  {wantsTmt ? (
+                    <div className="mt-5 grid max-w-xl gap-3 sm:grid-cols-2">
+                      <label className="block">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-bone-500">
+                          TMT bar brand
+                        </span>
+                        <select
+                          value={tmtBrand}
+                          onChange={(e) => setTmtBrand(e.target.value)}
+                          className={SELECT}
+                        >
+                          {tmtBrands.map((brand) => (
+                            <option key={brand} value={brand}>
+                              {brand}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="block">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-bone-500">Size</span>
+                        <select
+                          value={tmtSize}
+                          onChange={(e) => setTmtSize(e.target.value)}
+                          className={SELECT}
+                        >
+                          {tmtSizesMm.map((mm) => (
+                            <option key={mm} value={mm}>
+                              {mm} mm
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                  ) : null}
+
+                  {wantsRings ? (
+                    <div className="mt-5 grid max-w-xl gap-3 sm:grid-cols-2">
+                      <label className="block">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-bone-500">
+                          TMT ring brand
+                        </span>
+                        <select
+                          value={ringBrand}
+                          onChange={(e) => setRingBrand(e.target.value)}
+                          className={SELECT}
+                        >
+                          {tmtBrands.map((brand) => (
+                            <option key={brand} value={brand}>
+                              {brand}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="block">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-bone-500">Size</span>
+                        <select
+                          value={ringSize}
+                          onChange={(e) => setRingSize(e.target.value)}
+                          className={SELECT}
+                        >
+                          {tmtSizesMm.map((mm) => (
+                            <option key={mm} value={mm}>
+                              {mm} mm
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className="mt-8">
@@ -525,7 +655,13 @@ export default function ContactYard() {
 
                 <label className="mt-6 block">
                   <span className="sr-only">Quantity and notes</span>
-                  <textarea className={`${LINE} resize-none`} rows={3} placeholder="Quantity, site, when you need it" value={form.notes} onChange={set("notes")} />
+                  <textarea
+                    className={`${LINE} min-h-12 resize-none leading-normal`}
+                    rows={1}
+                    placeholder="Quantity, site, when you need it"
+                    value={form.notes}
+                    onChange={set("notes")}
+                  />
                 </label>
 
                 <fieldset className="mt-8">
@@ -612,14 +748,17 @@ export default function ContactYard() {
             04 — Delivery area
           </p>
           <h2 data-reveal className="display max-w-[14ch] text-[8.6vw] leading-[1.05] text-bone md:text-[3.3vw]">
-            One district. <span className="text-steel-400">Covered properly.</span>
+            Three districts. <span className="text-steel-400">Covered properly.</span>
           </h2>
           <p data-reveal className="mt-8 max-w-[60ch] text-[17px] leading-relaxed text-bone-600">
-            Just outside the district? Call us anyway.
+            Just outside these districts? Call us anyway.
           </p>
-          <div data-reveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div data-reveal className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-5">
             {areas.map((town) => (
-              <span key={town} className="flex min-h-[52px] items-center justify-center border border-bone/20 px-3 py-3 text-center font-mono text-[12px] font-semibold uppercase leading-snug tracking-[0.08em] text-bone sm:tracking-[0.12em]">
+              <span
+                key={town}
+                className="flex min-h-[88px] items-center justify-center border border-bone/20 px-5 py-6 text-center font-mono text-[15px] font-semibold uppercase leading-snug tracking-[0.14em] text-bone md:min-h-[120px] md:px-8 md:py-10 md:text-[18px] md:tracking-[0.18em]"
+              >
                 {town}
               </span>
             ))}

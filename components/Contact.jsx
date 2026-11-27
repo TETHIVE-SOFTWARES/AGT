@@ -314,7 +314,7 @@ export default function Contact({ lead = true, withMap = false }) {
             <div className="overflow-hidden rounded-2xl border border-bone/10">
               <iframe
                 title="Ambika Global Traders, Erachakulam, Kanyakumari"
-                src="https://maps.google.com/maps?q=8/105/3+Balamore+Road+Erachakulam+Kanyakumari+629901&output=embed"
+                src="https://maps.google.com/maps?q=8.230681,77.430292&z=17&output=embed"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="block h-[260px] w-full md:h-[420px]"

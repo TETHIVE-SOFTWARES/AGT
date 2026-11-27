@@ -149,7 +149,7 @@ export default function Nav() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link href="/contact" className="btn btn-ghost hidden shrink-0 !px-6 !py-3 md:inline-flex">
+            <Link href="/contact#enquiry" className="btn btn-ghost hidden shrink-0 !px-6 !py-3 md:inline-flex">
               Get a Quote
             </Link>
 

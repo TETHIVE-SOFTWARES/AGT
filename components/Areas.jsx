@@ -58,15 +58,15 @@ export default function Areas() {
           <div className="lg:col-span-7">
             <p className="eyebrow mb-6">Areas we serve</p>
             <h2 className="display text-[9.4vw] leading-[1.05] text-bone md:text-[3.9vw]">
-              One district.
+              Three districts.
               <br />
               <span className="text-steel-400">Covered properly.</span>
             </h2>
           </div>
           <div className="self-end lg:col-span-5">
             <p className="max-w-[44ch] text-[17px] leading-relaxed text-bone-600">
-              Loads leave the Erachakulam yard daily. If your site sits inside Kanyakumari district,
-              we can get material to it — and if it sits just outside, call us anyway.
+              Loads leave the Erachakulam yard daily for sites across Kanyakumari, Thoothukudi and
+              Tirunelveli — and if you sit just outside, call us anyway.
             </p>
             <a
               href={company.maps}
@@ -79,13 +79,13 @@ export default function Areas() {
           </div>
         </div>
 
-        <div className="ar-grid mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-24 md:grid-cols-4 lg:grid-cols-5">
+        <div className="ar-grid mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3 md:mt-24 md:gap-5">
           {areas.map((a) => (
             <div
               key={a}
-              className="ar-item flex min-h-[52px] items-center justify-center border border-bone/20 bg-ink px-3 py-3 text-center transition-colors duration-500 hover:border-steel"
+              className="ar-item flex min-h-[88px] items-center justify-center border border-bone/20 bg-ink px-5 py-6 text-center transition-colors duration-500 hover:border-steel md:min-h-[120px] md:px-8 md:py-10"
             >
-              <span className="font-mono text-[12px] font-semibold uppercase leading-snug tracking-[0.08em] text-bone sm:tracking-[0.12em]">
+              <span className="font-mono text-[15px] font-semibold uppercase leading-snug tracking-[0.14em] text-bone md:text-[18px] md:tracking-[0.18em]">
                 {a}
               </span>
             </div>

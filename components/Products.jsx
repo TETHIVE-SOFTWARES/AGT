@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Media from "@/components/Media";
 import { initGsap } from "@/lib/anim";
-import { products } from "@/lib/data";
+import { getProducts } from "@/lib/api";
 import Icon from "@/lib/icons";
 
 /* These shots are wider than the standard card, so the card follows the photo. */
@@ -20,8 +20,14 @@ export default function Products() {
   const root = useRef(null);
   const track = useRef(null);
   const bar = useRef(null);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    getProducts().then(setProducts);
+  }, []);
+
+  useEffect(() => {
+    if (!products.length) return;
     const { gsap } = initGsap();
 
     const ctx = gsap.context(() => {
@@ -76,7 +82,7 @@ export default function Products() {
     }, root);
 
     return () => ctx.revert();
-  }, []);
+  }, [products]);
 
   return (
     <section id="products" ref={root} className="on-dark relative overflow-hidden bg-ink">
@@ -108,7 +114,7 @@ export default function Products() {
             const frame = fullFrame[p.title];
             return (
             <article
-              key={p.n}
+              key={p.id || p.n}
               style={frame ? { aspectRatio: frame } : undefined}
               className={`pr-card p-card scanline group relative h-[68vh] min-h-[440px] max-h-[640px] shrink-0 snap-start overflow-hidden border border-bone/10 bg-ink-700 ${
                 frame ? "w-auto" : "w-[84vw] sm:w-[54vw] md:w-[32vw] lg:w-[25vw]"
@@ -169,8 +175,8 @@ export default function Products() {
                   Tile adhesive, gates, hardware and everything in between. Tell us the stage you
                   are at and we will send an itemised quote.
                 </p>
-                <Link href="/contact" className="btn btn-solid mt-7">
-                  Request a quote
+                <Link href="/products" className="btn btn-solid mt-7">
+                  See rates
                 </Link>
               </div>
             </article>

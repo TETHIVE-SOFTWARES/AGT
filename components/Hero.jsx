@@ -206,11 +206,11 @@ export default function Hero({ ready }) {
 
         {/* ---------- Bottom chrome ---------- */}
         <div className="hero-chrome mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center md:mt-12">
-          <a href="/#products" className="btn btn-solid w-full justify-center sm:w-auto">
+          <a href="/products" className="btn btn-solid w-full justify-center sm:w-auto">
             View the catalogue
           </a>
-          <a href={`mailto:${company.email}?subject=Quote%20request`} className="btn btn-ghost w-full justify-center sm:w-auto">
-            Mail a quote
+          <a href="/contact#enquiry" className="btn btn-ghost w-full justify-center sm:w-auto">
+            Get a quote
           </a>
         </div>
       </div>

@@ -14,7 +14,7 @@ function LogoRow({ logos, reverse, rowRef }) {
           className="flex h-24 w-[180px] shrink-0 items-center justify-center px-6 md:h-28 md:w-[230px]"
         >
           <Image
-            src={`/brands/${b}`}
+            src={`/brands/${b}.png`}
             alt=""
             width={150}
             height={150}
@@ -78,7 +78,7 @@ export default function Dealers() {
         <div className="dl-head flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="eyebrow mb-5">Our authorized dealers</p>
-            <h2 className="display text-[7.8vw] leading-[1.05] text-bone md:text-[3vw]">
+            <h2 className="display text-[7.8vw] leading-[0.94] text-bone md:text-[3vw]">
               Brands we are
               <br />
               <span className="text-steel-400">accountable for.</span>
